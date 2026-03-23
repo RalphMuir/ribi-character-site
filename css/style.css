@@ -8,10 +8,8 @@ body, html {
     margin: 0; padding: 0; height: 100%;
     background: var(--bg-dark); color: white;
     font-family: 'Segoe UI', sans-serif;
-    overflow: hidden;
 }
 
-/* 滾動吸附容器 */
 .scroll-container {
     height: 100vh;
     overflow-y: scroll;
@@ -22,14 +20,13 @@ section {
     height: 100vh;
     scroll-snap-align: start;
     position: relative;
-    overflow: hidden;
 }
 
-/* 第一屏背景切換動畫 */
+/* 第一屏 */
 .page-top {
     background-size: cover;
     background-position: center;
-    transition: background-image 0.8s ease-in-out; /* 切換背景時的淡入 */
+    transition: background-image 0.8s ease-in-out;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -39,58 +36,45 @@ section {
 .background-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, transparent 50%, var(--bg-dark));
+    background: linear-gradient(to bottom, transparent 40%, var(--bg-dark));
 }
 
-/* 中間導航區 */
 .mid-nav {
-    width: 100%;
-    z-index: 10;
-    padding-bottom: 50px;
-    background: rgba(0,0,0,0.4);
-    backdrop-filter: blur(5px);
+    width: 100%; z-index: 10; padding-bottom: 40px;
+    background: rgba(0,0,0,0.5); backdrop-filter: blur(8px);
 }
 
-.tabs {
-    display: flex; justify-content: center; gap: 40px;
-    margin-bottom: 20px; font-weight: bold;
-}
-
+.tabs { display: flex; justify-content: center; gap: 40px; margin-bottom: 20px; font-weight: bold; }
 .tab-item.active { color: var(--accent-red); border-bottom: 2px solid var(--accent-red); }
 
-/* Swiper 縮圖 */
-.visual-swiper { width: 400px; height: 120px; margin-bottom: 20px; }
-.swiper-slide {
-    opacity: 0.4; transition: 0.4s; cursor: pointer;
-    border: 2px solid transparent; border-radius: 8px; overflow: hidden;
-}
+.visual-swiper { width: 450px; height: 130px; margin-bottom: 15px; }
+.swiper-slide { opacity: 0.4; transition: 0.4s; cursor: pointer; border-radius: 8px; overflow: hidden; border: 2px solid transparent; }
 .swiper-slide-active { opacity: 1; border-color: var(--accent-red); transform: scale(1.1); }
 .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
 
-/* Visual 控制條 */
 .visual-footer { display: flex; align-items: center; justify-content: center; gap: 15px; }
-.line { width: 80px; height: 1px; background: linear-gradient(to right, transparent, var(--accent-red), transparent); }
-.nav-arrow { color: var(--accent-red); cursor: pointer; font-size: 20px; }
+.line { width: 100px; height: 1px; background: linear-gradient(to right, transparent, var(--accent-red), transparent); }
+.nav-arrow { color: var(--accent-red); cursor: pointer; font-size: 24px; }
 
-/* 第二屏排版 */
+/* 第二屏 */
 .page-bottom {
     display: grid; grid-template-columns: 1fr 1fr;
-    padding: 60px; box-sizing: border-box;
+    padding: 60px; box-sizing: border-box; background: #050505;
 }
 
-.skill-card, .skill-item {
-    background: var(--panel-bg);
-    border-left: 4px solid var(--accent-red);
-    padding: 15px; margin-bottom: 15px;
-    display: flex; gap: 20px; align-items: center;
+.skill-item {
+    background: var(--panel-bg); border-left: 4px solid var(--accent-red);
+    padding: 15px; margin-bottom: 15px; display: flex; gap: 20px;
     position: relative;
 }
 
-/* 藍色發光底線 */
 .skill-item::after {
     content: ""; position: absolute; bottom: 0; right: 10px;
     width: 50%; height: 1px; background: #4cc9f0; box-shadow: 0 0 10px #4cc9f0;
 }
 
-.skill-icon { width: 60px; height: 60px; background: #333; flex-shrink: 0; }
-.full-body-visual { background: url('full-body.png') center/contain no-repeat; }
+.skill-icon { width: 60px; height: 60px; background: #222; flex-shrink: 0; }
+.full-body-visual { background-size: contain; background-repeat: no-repeat; background-position: center; }
+
+.scroll-hint { position: absolute; bottom: 20px; color: var(--accent-red); animation: bounce 2s infinite; }
+@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
