@@ -1,111 +1,48 @@
-const base = "img/";
+/* 粒子系統 */
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
 
-/* 工具：圖片不存在就隱藏 */
-function safeSetImg(el, path){
-    if(!path){
-        el.style.display = "none";
-        return;
-    }
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-    const img = new Image();
-    img.onload = ()=> {
-        el.src = path;
-        el.style.display = "block";
-    };
-    img.onerror = ()=> {
-        el.style.display = "none";
-    };
-    img.src = path;
+let particles = [];
+
+for(let i=0;i<60;i++){
+    particles.push({
+        x: Math.random()*canvas.width,
+        y: Math.random()*canvas.height,
+        r: Math.random()*2+1,
+        dx: (Math.random()-0.5)*0.5,
+        dy: (Math.random()-0.5)*0.5
+    });
 }
 
-/* 角色資料（你可以慢慢補） */
-const characters = [
-{
-    name:"Ribi",
-    info:"Age:19<br>Height:158cm",
+function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
 
-    main: base + "full-body.png",
-    front: base + "front_view.png",
-    side: base + "side_view.png",
-    back: base + "back_view.png",
+    particles.forEach(p=>{
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle="rgba(255,150,200,0.6)";
+        ctx.fill();
 
-    bg: base + "bg1.jpg"
-},
-{
-    name:"Coming Soon",
-    info:"???",
+        p.x+=p.dx;
+        p.y+=p.dy;
 
-    main: "",
-    front: "",
-    side: "",
-    back: "",
+        if(p.x<0||p.x>canvas.width) p.dx*=-1;
+        if(p.y<0||p.y>canvas.height) p.dy*=-1;
+    });
 
-    bg: ""
-}
-];
-
-/* 建立 swiper */
-const wrapper = document.getElementById("swiper-wrapper");
-
-characters.forEach(c=>{
-    const slide = document.createElement("div");
-    slide.className = "swiper-slide";
-
-    slide.innerHTML = `
-        <div style="height:100px;display:flex;align-items:center;justify-content:center;">
-            ${c.main ? `<img src="${c.main}" style="height:100%">` : "?"}
-        </div>
-    `;
-
-    wrapper.appendChild(slide);
-});
-
-const swiper = new Swiper(".mySwiper",{
-    slidesPerView:1.5,
-    centeredSlides:true,
-    loop:true
-});
-
-/* DOM */
-const nameEl = document.getElementById("char-name");
-const infoEl = document.getElementById("char-info");
-const mainChar = document.getElementById("main-char");
-const front = document.getElementById("front");
-const side = document.getElementById("side");
-const back = document.getElementById("back");
-const bg = document.getElementById("bg");
-
-/* 更新角色 */
-function updateCharacter(i){
-    const c = characters[i];
-
-    nameEl.innerHTML = c.name;
-    infoEl.innerHTML = c.info;
-
-    safeSetImg(mainChar, c.main);
-    safeSetImg(front, c.front);
-    safeSetImg(side, c.side);
-    safeSetImg(back, c.back);
-
-    if(c.bg){
-        bg.style.backgroundImage = `url(${c.bg})`;
-    }else{
-        bg.style.background = "#111";
-    }
+    requestAnimationFrame(draw);
 }
 
-/* 初始 */
-updateCharacter(0);
-
-/* 切換 */
-swiper.on("slideChange",()=>{
-    updateCharacter(swiper.realIndex);
-});
+draw();
 
 /* 視差 */
 document.addEventListener("mousemove",(e)=>{
     const x = (e.clientX/window.innerWidth - 0.5)*20;
     const y = (e.clientY/window.innerHeight - 0.5)*20;
 
-    bg.style.transform = `translate(${x}px, ${y}px) scale(1.05)`;
+    document.querySelector(".main-char").style.transform =
+        `translate(${x}px, ${y}px)`;
 });
