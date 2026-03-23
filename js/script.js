@@ -1,5 +1,6 @@
 let currentTab = "profile";
 
+/* TAB */
 function switchTab(e,tab){
     currentTab = tab;
 
@@ -9,6 +10,7 @@ function switchTab(e,tab){
     render();
 }
 
+/* 內容 */
 function render(){
     const panel = document.getElementById("panel");
 
@@ -23,7 +25,7 @@ function render(){
 
     if(currentTab==="stream"){
         panel.innerHTML = `
-        <iframe width="100%" height="200"
+        <iframe width="100%" height="220"
         src="https://www.youtube.com/embed/dQw4w9WgXcQ"></iframe>`;
     }
 
@@ -39,6 +41,7 @@ function render(){
 
 render();
 
+/* 燈箱 */
 function openLightbox(src){
     document.getElementById("lightbox").style.display="flex";
     document.getElementById("lightbox-img").src=src;
@@ -48,17 +51,23 @@ function closeLightbox(){
     document.getElementById("lightbox").style.display="none";
 }
 
+/* 角色動畫 */
 function nextChar(){
     const c=document.getElementById("char");
-    c.style.transform="translateX(100px)";
-    setTimeout(()=>c.style.transform="translateX(0)",300);
+    c.style.transform="translateX(120px) scale(0.95)";
+    setTimeout(()=>c.style.transform="translateX(0) scale(1)",300);
 }
 
 function prevChar(){
     const c=document.getElementById("char");
-    c.style.transform="translateX(-100px)";
-    setTimeout(()=>c.style.transform="translateX(0)",300);
+    c.style.transform="translateX(-120px) scale(0.95)";
+    setTimeout(()=>c.style.transform="translateX(0) scale(1)",300);
 }
+
+/* 🎬 進場動畫 */
+window.addEventListener("load",()=>{
+    document.body.classList.add("show");
+});
 
 /* 粒子 */
 const canvas=document.getElementById("particles");
@@ -81,7 +90,7 @@ function draw(){
     p.forEach(o=>{
         ctx.beginPath();
         ctx.arc(o.x,o.y,o.r,0,Math.PI*2);
-        ctx.fillStyle="pink";
+        ctx.fillStyle="rgba(255,150,200,0.8)";
         ctx.fill();
     });
     requestAnimationFrame(draw);
