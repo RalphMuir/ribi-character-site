@@ -3,61 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ribi Character</title>
+<title>Ribi</title>
 
 <link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-
 </head>
 
 <body>
 
-<div class="scroll-container">
+<div class="hero">
 
-<!-- HERO -->
-<section class="hero">
-    <div class="bg" id="bg"></div>
+    <!-- 粒子 -->
+    <canvas id="particles"></canvas>
 
-    <div class="top-ui">
-
-        <div class="tabs">
-            <span class="tab active">CHARACTER</span>
-            <span class="tab">LORE</span>
-            <span class="tab">MEMORY</span>
-        </div>
-
-        <div class="swiper mySwiper">
-            <div class="swiper-wrapper" id="swiper-wrapper"></div>
-        </div>
-
-    </div>
-
-    <div class="scroll-hint">SCROLL ↓</div>
-</section>
-
-<!-- CONTENT -->
-<section class="content">
-
+    <!-- 左資訊 -->
     <div class="left">
-        <h1 id="char-name">Loading...</h1>
-        <div id="char-info"></div>
+        <h1 class="name">Ribi</h1>
 
-        <div class="view-panel">
-            <img id="front" class="view-img">
-            <img id="side" class="view-img">
-            <img id="back" class="view-img">
+        <div class="info">
+            Age : 19<br>
+            Height : 158cm<br>
+            Personality : Cheerful
+        </div>
+
+        <div class="views">
+            <img src="img/front_view.png">
+            <img src="img/side_view.png">
+            <img src="img/back_view.png">
         </div>
     </div>
 
+    <!-- 右角色 -->
     <div class="right">
-        <img id="main-char" class="main-char">
+        <img src="img/full-body.png" class="main-char">
     </div>
-
-</section>
 
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="js/script.js"></script>
 
 </body>
