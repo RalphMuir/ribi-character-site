@@ -1,40 +1,115 @@
-/* 修改第二屏佈局，讓資訊區往上靠 */
+:root {
+    --accent-red: #ff4d6d;
+    --accent-blue: #4cc9f0;
+    --glass-bg: rgba(25, 25, 30, 0.75);
+    --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+body, html {
+    margin: 0; padding: 0; height: 100%;
+    background: #000; color: white;
+    font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+    overflow: hidden;
+}
+
+.scroll-container {
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+}
+
+section {
+    height: 100vh;
+    scroll-snap-align: start;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 第一屏視覺 */
+.page-top {
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.background-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 40%, #000 100%);
+}
+
+.mid-nav {
+    width: 100%; z-index: 10; padding-bottom: 50px;
+    background: rgba(0,0,0,0.4); backdrop-filter: blur(15px);
+    display: flex; flex-direction: column; align-items: center;
+}
+
+.tabs-top { display: flex; gap: 40px; margin-bottom: 25px; }
+.tab-item-top { font-weight: bold; color: #888; cursor: pointer; }
+.tab-item-top.active { color: var(--accent-red); border-bottom: 2px solid var(--accent-red); }
+
+.visual-swiper { width: 450px; height: 130px; margin-bottom: 20px; }
+.swiper-slide { opacity: 0.4; transition: 0.5s; border-radius: 6px; overflow: hidden; border: 1px solid var(--glass-border); }
+.swiper-slide-active { opacity: 1; border-color: var(--accent-red); transform: scale(1.1); box-shadow: 0 0 15px rgba(255, 77, 109, 0.3); }
+.swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
+
+.visual-footer { display: flex; align-items: center; gap: 15px; }
+.line { width: 100px; height: 1px; background: linear-gradient(to right, transparent, var(--accent-red), transparent); }
+
+/* 第二屏：資訊區上移優化 */
 .page-bottom {
     display: grid;
     grid-template-columns: 1.2fr 1fr;
-    padding: 40px 80px; /* 減少頂部內邊距，讓內容上移 */
+    padding: 60px 80px; /* 縮減頂部間距 */
     box-sizing: border-box;
-    background: #050505;
-    align-items: start; /* 關鍵：讓內容對齊頂部而非置中 */
+    align-items: start; /* 關鍵：讓內容往上靠 */
 }
 
-/* 確保資訊盒子上部沒有多餘間距 */
-.info-box {
-    margin-top: 20px; /* 根據視覺微調此數值 */
-    z-index: 2;
-}
+.char-name { font-size: 4.5rem; margin: 0; letter-spacing: -2px; }
+.stats { font-size: 1.1rem; color: #aaa; margin: 15px 0 30px; line-height: 1.6; }
 
-/* 預設隱藏所有內容區塊，除了 active 狀態 */
-.tab-content {
-    display: none;
+/* 子頁籤樣式 */
+.sub-tabs { display: flex; gap: 10px; margin-bottom: 30px; }
+.s-tab { 
+    padding: 8px 24px; background: rgba(255,255,255,0.05); 
+    border: 1px solid var(--glass-border); border-radius: 4px; 
+    color: #888; cursor: pointer; transition: 0.3s;
 }
+.s-tab.active { background: #4a252f; color: white; border-color: var(--accent-red); box-shadow: 0 0 10px rgba(255,77,109,0.2); }
 
-.tab-content.active {
-    display: block;
-}
+/* 內容顯示邏輯 */
+.tab-content { display: none; animation: fadeIn 0.5s ease; }
+.tab-content.active { display: block; }
 
-/* 附件二的技能卡片樣式強化 */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* 技能卡片 (附件二樣式) */
 .skill-item {
     background: var(--glass-bg);
     backdrop-filter: blur(10px);
     border: 1px solid var(--glass-border);
     border-left: 4px solid var(--accent-red);
-    padding: 20px;
-    margin-bottom: 20px;
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    position: relative;
-    border-radius: 4px;
-    box-shadow: var(--panel-shadow);
+    padding: 20px; margin-bottom: 15px;
+    display: flex; gap: 20px; align-items: center;
+    position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
+
+.skill-item.blue-variant { border-left-color: var(--accent-blue); }
+.skill-item::after {
+    content: ""; position: absolute; bottom: 0; right: 0;
+    width: 60%; height: 1px;
+    background: linear-gradient(to right, transparent, var(--accent-red));
+}
+.skill-item.blue-variant::after { background: linear-gradient(to right, transparent, var(--accent-blue)); }
+
+.skill-icon { width: 60px; height: 60px; background: #111; border: 1px solid #333; overflow: hidden; }
+.skill-icon img { width: 100%; height: 100%; object-fit: cover; }
+.skill-info h3 { margin: 0; font-size: 1.2rem; }
+.skill-info p { margin: 5px 0 0; font-size: 0.9rem; color: #888; }
+
+.full-body-visual { background-size: contain; background-repeat: no-repeat; background-position: center bottom; height: 100%; }
+.empty-text { color: #555; font-style: italic; }
+.scroll-hint { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: var(--accent-red); animation: bounce 2s infinite; }
+@keyframes bounce { 0%, 100% { transform: translateY(0) translateX(-50%); } 50% { transform: translateY(-10px) translateX(-50%); } }
