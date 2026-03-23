@@ -1,205 +1,29 @@
-/* --- 核心變數定義 --- */
-:root {
-    --accent-red: #ff4d6d;
-    --accent-blue: #4cc9f0;
-    --bg-dark: #0a0a0c;
-    --glass-bg: rgba(20, 20, 25, 0.7); /* 浮框半透明背景 */
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --panel-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
-}
-
-/* --- 基礎設定 --- */
-body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    background: var(--bg-dark);
-    color: white;
-    font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
-    overflow: hidden;
-}
-
-/* --- 全屏滾動吸附 --- */
-.scroll-container {
-    height: 100vh;
-    overflow-y: scroll;
-    scroll-snap-type: y mandatory;
-}
-
-section {
-    height: 100vh;
-    width: 100%;
-    scroll-snap-align: start;
-    position: relative;
-    overflow: hidden;
-}
-
-/* --- 第一屏：視覺展示區 --- */
-.page-top {
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-/* 頂部漸層遮罩：讓背景圖自然過渡到黑色 */
-.background-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, 
-        transparent 0%, 
-        rgba(10, 10, 12, 0.2) 40%, 
-        rgba(10, 10, 12, 0.8) 80%, 
-        var(--bg-dark) 100%);
-    z-index: 1;
-}
-
-/* --- 中間浮框導航區 (Glassmorphism) --- */
-.mid-nav {
-    width: 100%;
-    z-index: 10;
-    padding: 30px 0;
-    background: rgba(10, 10, 12, 0.6);
-    backdrop-filter: blur(15px); /* 磨砂玻璃核心效果 */
-    -webkit-backdrop-filter: blur(15px);
-    border-top: 1px solid var(--glass-border);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.tabs {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    margin-bottom: 25px;
-}
-
-.tab-item {
-    font-weight: bold;
-    color: #888;
-    cursor: pointer;
-    transition: 0.3s;
-    text-shadow: 0 0 5px rgba(0,0,0,0.5);
-}
-
-.tab-item.active {
-    color: var(--accent-red);
-    text-shadow: 0 0 10px rgba(255, 77, 109, 0.5);
-    border-bottom: 2px solid var(--accent-red);
-}
-
-/* Swiper 縮圖樣式 */
-.visual-swiper {
-    width: 450px;
-    height: 130px;
-    margin-bottom: 15px;
-}
-
-.swiper-slide {
-    opacity: 0.4;
-    transition: 0.5s ease;
-    border-radius: 6px;
-    overflow: hidden;
-    border: 1px solid var(--glass-border);
-}
-
-.swiper-slide-active {
-    opacity: 1;
-    transform: scale(1.1);
-    border: 1px solid var(--accent-red);
-    box-shadow: 0 0 20px rgba(255, 77, 109, 0.4);
-}
-
-.swiper-slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* Visual 控制條 */
-.visual-footer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    color: #eee;
-    font-size: 14px;
-    letter-spacing: 2px;
-}
-
-.line {
-    width: 80px;
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--accent-red), transparent);
-}
-
-.nav-arrow {
-    color: var(--accent-red);
-    cursor: pointer;
-    font-size: 20px;
-    user-select: none;
-}
-
-/* --- 第二屏：詳細資訊區 --- */
+/* 修改第二屏佈局，讓資訊區往上靠 */
 .page-bottom {
     display: grid;
     grid-template-columns: 1.2fr 1fr;
-    padding: 80px;
+    padding: 40px 80px; /* 減少頂部內邊距，讓內容上移 */
     box-sizing: border-box;
     background: #050505;
+    align-items: start; /* 關鍵：讓內容對齊頂部而非置中 */
 }
 
+/* 確保資訊盒子上部沒有多餘間距 */
 .info-box {
+    margin-top: 20px; /* 根據視覺微調此數值 */
     z-index: 2;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
 
-.char-name {
-    font-size: 5rem;
-    margin: 0;
-    background: linear-gradient(to bottom, #fff, #888);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
+/* 預設隱藏所有內容區塊，除了 active 狀態 */
+.tab-content {
+    display: none;
 }
 
-.stats {
-    font-size: 1.1rem;
-    color: #bbb;
-    margin: 25px 0;
-    line-height: 1.8;
+.tab-content.active {
+    display: block;
 }
 
-/* 技能 Tab 按鈕 */
-.skill-tabs {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 25px;
-}
-
-.s-tab {
-    padding: 10px 25px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--glass-border);
-    border-radius: 4px;
-    color: #aaa;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.s-tab.active {
-    background: linear-gradient(135deg, #7d3c4a 0%, #4a252f 100%);
-    color: white;
-    border-color: var(--accent-red);
-    box-shadow: 0 0 15px rgba(255, 77, 109, 0.3);
-}
-
-/* --- 技能卡片：浮框漸層設計 --- */
+/* 附件二的技能卡片樣式強化 */
 .skill-item {
     background: var(--glass-bg);
     backdrop-filter: blur(10px);
@@ -214,44 +38,3 @@ section {
     border-radius: 4px;
     box-shadow: var(--panel-shadow);
 }
-
-/* 底部藍色導光條效果 */
-.skill-item::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 60%;
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--accent-blue));
-    box-shadow: 0 0 10px var(--accent-blue);
-}
-
-.skill-icon {
-    width: 70px;
-    height: 70px;
-    background: #000;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 4px;
-}
-
-.skill-info h3 { margin: 0; font-size: 1.3rem; color: #fff; }
-.skill-info p { margin: 5px 0 0 0; font-size: 0.95rem; color: #aaa; }
-
-/* 全身立繪區塊 */
-.full-body-visual {
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center bottom;
-    z-index: 1;
-}
-
-/* 滾動提示箭頭 */
-.scroll-hint {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: var(--accent-red);
-    animation: bounce 2s infinite;
-    z-
