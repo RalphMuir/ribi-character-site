@@ -8,6 +8,7 @@ body, html {
     margin: 0; padding: 0; height: 100%;
     background: var(--bg-dark); color: white;
     font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
 }
 
 .scroll-container {
@@ -20,23 +21,26 @@ section {
     height: 100vh;
     scroll-snap-align: start;
     position: relative;
+    overflow: hidden;
 }
 
-/* 第一屏 */
+/* 第一屏：視覺展示區 */
 .page-top {
     background-size: cover;
     background-position: center;
-    transition: background-image 0.8s ease-in-out;
+    /* 關鍵：移除了 transition: background-image 0.8s ...，因為不需要背景切換動畫 */
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
+    background-color: var(--bg-dark); /* 提供一個底色防止圖片未載入時的突兀感 */
 }
 
 .background-overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(to bottom, transparent 40%, var(--bg-dark));
+    z-index: 1; /* 確保遮罩在圖片之上 */
 }
 
 .mid-nav {
@@ -45,6 +49,7 @@ section {
 }
 
 .tabs { display: flex; justify-content: center; gap: 40px; margin-bottom: 20px; font-weight: bold; }
+.tab-item { cursor: pointer; color: #888; transition: 0.3s; }
 .tab-item.active { color: var(--accent-red); border-bottom: 2px solid var(--accent-red); }
 
 .visual-swiper { width: 450px; height: 130px; margin-bottom: 15px; }
@@ -52,9 +57,9 @@ section {
 .swiper-slide-active { opacity: 1; border-color: var(--accent-red); transform: scale(1.1); }
 .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
 
-.visual-footer { display: flex; align-items: center; justify-content: center; gap: 15px; }
+.visual-footer { display: flex; align-items: center; justify-content: center; gap: 15px; z-index: 10;}
 .line { width: 100px; height: 1px; background: linear-gradient(to right, transparent, var(--accent-red), transparent); }
-.nav-arrow { color: var(--accent-red); cursor: pointer; font-size: 24px; }
+.nav-arrow { color: var(--accent-red); cursor: pointer; font-size: 24px; user-select: none; }
 
 /* 第二屏 */
 .page-bottom {
@@ -62,10 +67,26 @@ section {
     padding: 60px; box-sizing: border-box; background: #050505;
 }
 
+.info-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 2;
+}
+
+.char-name { font-size: 4rem; margin: 0; }
+.stats { font-size: 1.1rem; color: #aaa; margin: 20px 0; line-height: 1.6; }
+
+.skill-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+.s-tab { padding: 8px 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; color: #aaa; cursor: pointer; transition: 0.3s; }
+.s-tab.active { background: linear-gradient(to bottom, #7d3c4a, #4a252f); color: white; border-color: var(--accent-red); }
+
+.skill-list { width: 100%; max-width: 400px; }
 .skill-item {
     background: var(--panel-bg); border-left: 4px solid var(--accent-red);
     padding: 15px; margin-bottom: 15px; display: flex; gap: 20px;
     position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
 .skill-item::after {
@@ -74,7 +95,18 @@ section {
 }
 
 .skill-icon { width: 60px; height: 60px; background: #222; flex-shrink: 0; }
-.full-body-visual { background-size: contain; background-repeat: no-repeat; background-position: center; }
+.skill-info h3 { margin: 0; font-size: 1.2rem; }
+.skill-info p { margin: 5px 0 0 0; font-size: 0.9rem; color: #bbb; line-height: 1.4; }
 
-.scroll-hint { position: absolute; bottom: 20px; color: var(--accent-red); animation: bounce 2s infinite; }
+.full-body-visual { background-size: contain; background-repeat: no-repeat; background-position: center; z-index: 1; }
+
+.scroll-hint { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: var(--accent-red); animation: bounce 2s infinite; z-index: 10; cursor: pointer; }
 @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+/* 針對小螢幕的響應式調整 */
+@media (max-width: 768px) {
+    .page-bottom { grid-template-columns: 1fr; gap: 20px; padding: 30px; }
+    .full-body-visual { height: 300px; }
+    .visual-swiper { width: 300px; }
+    .line { width: 50px; }
+}
