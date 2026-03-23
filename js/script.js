@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. 初始化頂部輪播
+    // 1. 原有的 Visual 輪播
     const visualSwiper = new Swiper('.visual-swiper', {
         slidesPerView: 3,
         centeredSlides: true,
@@ -8,23 +8,19 @@ document.addEventListener('DOMContentLoaded', () => {
         navigation: { nextEl: '.next-btn', prevEl: '.prev-btn' }
     });
 
-    // 2. 初始化 Profile 左右滑動 (外框架滑動效果)
+    // 2. 新增的 Profile 內容輪播
     const profileSwiper = new Swiper('.profile-swiper', {
         slidesPerView: 1,
         spaceBetween: 30,
-        grabCursor: true,
-        pagination: {
-            el: '.profile-pagination',
-            clickable: true,
+        loop: false, // 只有兩張時不一定要 loop
+        grabCursor: true, // 滑鼠懸停顯示抓取手勢
+        navigation: {
+            nextEl: '.p-next',
+            prevEl: '.p-prev',
         },
     });
 
-    // 3. 背景處理
-    const hero = document.getElementById('hero-section');
-    const bgName = hero.getAttribute('data-fixed-bg');
-    if (bgName) hero.style.backgroundImage = `url('img/${bgName}')`;
-
-    // 4. Tab 切換邏輯
+    // 3. Tab 切換邏輯 (切換回 Profile 時重新計算 Swiper)
     const tabs = document.querySelectorAll('.s-tab');
     const contents = document.querySelectorAll('.tab-content');
 
@@ -34,14 +30,17 @@ document.addEventListener('DOMContentLoaded', () => {
             tabs.forEach(t => t.classList.remove('active'));
             tab.classList.add('active');
             contents.forEach(c => c.classList.remove('active'));
-            
-            const activeContent = document.getElementById(target);
-            activeContent.classList.add('active');
+            document.getElementById(target).classList.add('active');
 
-            // 如果切換到 Profile，需強制更新 Swiper
+            // 關鍵：如果切換回 Profile，需要更新 Swiper 避免佈局出錯
             if(target === 'profile-content') {
-                setTimeout(() => profileSwiper.update(), 100);
+                profileSwiper.update();
             }
         });
     });
+
+    // 背景設定
+    const hero = document.getElementById('hero-section');
+    const bgName = hero.getAttribute('data-fixed-bg');
+    if (bgName) hero.style.backgroundImage = `url('img/${bgName}')`;
 });
