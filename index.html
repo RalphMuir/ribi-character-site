@@ -12,47 +12,47 @@
 
 <div class="hero">
 
-    <!-- 背景 -->
     <div class="bg"></div>
     <canvas id="particles"></canvas>
 
-    <!-- 左 UI -->
-    <div class="ui">
+    <!-- 🔥 核心容器（解決大螢幕問題） -->
+    <div class="container">
 
-        <h1 class="name">Ribi.</h1>
+        <!-- 左 UI -->
+        <div class="ui">
 
-        <div class="info">
-            Age : 19<br>
-            Height : 158cm<br>
-            Personality : Cheerful & Curious
+            <h1 class="name">Ribi.</h1>
+
+            <div class="info">
+                Age : 19<br>
+                Height : 158cm<br>
+                Personality : Cheerful & Curious
+            </div>
+
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab(event,'profile')">PROFILE</button>
+                <button class="tab" onclick="switchTab(event,'stream')">STREAM</button>
+                <button class="tab" onclick="switchTab(event,'gallery')">GALLERY</button>
+            </div>
+
+            <div class="panel" id="panel"></div>
+
         </div>
 
-        <!-- TAB -->
-        <div class="tabs">
-            <button class="tab active" onclick="switchTab(event,'profile')">PROFILE</button>
-            <button class="tab" onclick="switchTab(event,'stream')">STREAM</button>
-            <button class="tab" onclick="switchTab(event,'gallery')">GALLERY</button>
+        <!-- 角色 -->
+        <div class="character">
+
+            <img src="img/full-body.png" class="main-char" id="char">
+
+            <div class="arrow left" onclick="prevChar()">❮</div>
+            <div class="arrow right" onclick="nextChar()">❯</div>
+
         </div>
-
-        <!-- 面板 -->
-        <div class="panel" id="panel"></div>
-
-    </div>
-
-    <!-- 角色 -->
-    <div class="character">
-
-        <!-- 👉 之後你可以換成 GIF 或 WebM -->
-        <img src="img/full-body.png" class="main-char" id="char">
-
-        <div class="arrow left" onclick="prevChar()">❮</div>
-        <div class="arrow right" onclick="nextChar()">❯</div>
 
     </div>
 
 </div>
 
-<!-- 燈箱 -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
     <img id="lightbox-img">
 </div>
