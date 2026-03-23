@@ -8,11 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
         navigation: { nextEl: '.next-btn', prevEl: '.prev-btn' }
     });
 
-    // 2. 初始化 Profile 拖動展示 (下方)
+    // 2. 初始化 Profile 拖動切換 (下方)
     const profileSwiper = new Swiper('.profile-swiper', {
-        slidesPerView: 1,      // 每次展示一個面板
+        slidesPerView: 1,
         spaceBetween: 30,
-        grabCursor: true,      // 讓滑鼠變成小手抓取
+        grabCursor: true,
         navigation: {
             nextEl: '.p-next',
             prevEl: '.p-prev',
@@ -21,32 +21,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3. Tab 切換功能
     const tabs = document.querySelectorAll('.s-tab');
-    const contents = document.querySelectorAll('.tab-content');
-
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
             const target = tab.getAttribute('data-target');
             
+            // 隱藏其他，顯示當前
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             tabs.forEach(t => t.classList.remove('active'));
-            contents.forEach(c => c.classList.remove('active'));
             
             tab.classList.add('active');
-            const activeContent = document.getElementById(target);
-            activeContent.classList.add('active');
+            document.getElementById(target).classList.add('active');
 
-            // 修正：當切換到 Profile 時，強制 Swiper 刷新計算
-            if(target === 'profile-content') {
+            // 重要：切換回 Profile 時，必須強制重新計算 Swiper 寬度，否則會滑不動
+            if (target === 'profile-content') {
                 setTimeout(() => {
                     profileSwiper.update();
                 }, 100);
             }
         });
     });
-
-    // 背景處理
-    const hero = document.getElementById('hero-section');
-    if(hero) {
-        const bg = hero.getAttribute('data-fixed-bg');
-        if(bg) hero.style.backgroundImage = `url('img/${bg}')`;
-    }
 });
