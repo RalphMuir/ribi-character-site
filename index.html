@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ribi</title>
+<title>Ribi Showcase</title>
 
 <link rel="stylesheet" href="css/style.css">
 </head>
@@ -12,58 +12,42 @@
 
 <div class="hero">
 
-    <!-- 背景 -->
     <div class="bg"></div>
-
-    <!-- 粒子 -->
     <canvas id="particles"></canvas>
 
-    <!-- UI -->
+    <!-- 左UI -->
     <div class="ui">
-        <h1 class="name">Ribi.</h1>
+        <h1 class="name" id="charName">Ribi.</h1>
 
-        <div class="info">
+        <div class="info" id="charInfo">
             Age : 19<br>
             Height : 158cm<br>
-            Personality : Cheerful & Curious
+            Personality : Cheerful
         </div>
 
-        <div class="tabs">
-            <button class="tab active" data-tab="profile">PROFILE</button>
-            <button class="tab" data-tab="stream">STREAM</button>
-            <button class="tab" data-tab="gallery">GALLERY</button>
-        </div>
+        <!-- 書本 -->
+        <div class="book" id="book">
 
-        <div class="panel">
-
-            <div class="tab-content active" id="profile">
-                <div class="views">
-                    <img src="img/front_view.png">
-                    <img src="img/side_view.png">
-                    <img src="img/back_view.png">
-                </div>
+            <!-- 左頁 -->
+            <div class="page left-page">
+                <div class="page-content" id="pageLeft"></div>
             </div>
 
-            <div class="tab-content" id="stream">
-                <iframe width="100%" height="220"
-                src="https://www.youtube.com/channel/UCXQJrgBfTc9uVvHOi2eQSMg"
-                frameborder="0" allowfullscreen></iframe>
-            </div>
-
-            <div class="tab-content" id="gallery">
-                <div class="gallery">
-                    <img src="img/g1.png">
-                    <img src="img/g2.png">
-                    <img src="img/g3.png">
-                </div>
+            <!-- 右頁 -->
+            <div class="page right-page">
+                <div class="page-content" id="pageRight"></div>
             </div>
 
         </div>
+
     </div>
 
     <!-- 角色 -->
     <div class="character">
-        <img src="img/full-body.png" class="main-char">
+        <img id="mainChar" src="img/full-body.png" class="main-char">
+
+        <div class="arrow left" onclick="prevChar()">❮</div>
+        <div class="arrow right" onclick="nextChar()">❯</div>
     </div>
 
 </div>
