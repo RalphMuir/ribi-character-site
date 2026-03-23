@@ -41,6 +41,63 @@ section { height: 100vh; scroll-snap-align: start; position: relative; overflow:
 .s-tab { padding: 8px 24px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 4px; color: #888; cursor: pointer; transition: 0.3s; }
 .s-tab.active { background: #4a252f; color: white; border-color: var(--accent-red); box-shadow: 0 0 10px rgba(255,77,109,0.2); }
 
+/* Profile 輪播容器 */
+.profile-swiper-container {
+    position: relative;
+    width: 100%;
+}
+
+.profile-swiper {
+    width: 100%;
+}
+
+/* 確保面板高度一致且圖片置中 */
+.view-panel, .full-view-panel {
+    display: flex;
+    gap: 15px;
+    background: var(--glass-bg); /* 使用你原本的玻璃背景色 */
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px);
+    height: 400px; /* 這裡的高度要根據你的內容調整 */
+    box-sizing: border-box;
+}
+
+.full-view-panel {
+    justify-content: center;
+    align-items: center;
+}
+
+/* 防止圖片放大跑掉 */
+.char-view, .full-char-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px rgba(255, 77, 109, 0.3));
+}
+
+/* 導航箭頭樣式 */
+.profile-nav {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 15px;
+}
+
+.p-prev, .p-next {
+    color: var(--accent-blue);
+    cursor: pointer;
+    font-size: 1.5rem;
+    transition: 0.3s;
+    user-select: none;
+}
+
+.p-prev:hover, .p-next:hover {
+    color: var(--accent-red);
+    text-shadow: 0 0 10px var(--accent-red);
+}
+
 /* 三視圖展示面板 */
 .view-panel {
     display: flex;
