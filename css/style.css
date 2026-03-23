@@ -1,3 +1,6 @@
+/* =========================
+   基本設定
+========================= */
 body,html{
     margin:0;
     font-family:sans-serif;
@@ -6,7 +9,9 @@ body,html{
     overflow:hidden;
 }
 
-/* 背景 */
+/* =========================
+   背景
+========================= */
 .bg{
     position:absolute;
     inset:0;
@@ -16,39 +21,69 @@ body,html{
     background-size:cover;
     background-position:center;
     filter:blur(12px);
+    z-index:0;
 }
 
 /* 粒子 */
 #particles{
     position:absolute;
     inset:0;
+    z-index:1;
 }
 
-/* 主畫面 */
+/* =========================
+   主畫面比例（關鍵🔥）
+========================= */
 .hero{
     display:grid;
-    grid-template-columns: 45% 55%;
+    grid-template-columns: 32% 68%;
     height:100vh;
+    position:relative;
 }
 
-/* 左UI */
+/* 中間光效（補空感🔥） */
+.hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background:
+        radial-gradient(
+            circle at 60% 50%,
+            rgba(255,120,180,0.15),
+            transparent 60%
+        );
+
+    pointer-events:none;
+}
+
+/* =========================
+   左側 UI
+========================= */
 .ui{
     position:relative;
     z-index:10;
-    padding:60px 60px 60px 80px;
+
+    padding:80px 40px 80px 80px;
+    max-width:500px;
 }
 
+/* 標題 */
 .name{
     font-size:72px;
     margin-bottom:10px;
 }
 
+/* 資訊 */
 .info{
     color:#aaa;
     margin-bottom:30px;
+    line-height:1.6;
 }
 
-/* TAB */
+/* =========================
+   TAB
+========================= */
 .tabs{
     display:flex;
     gap:10px;
@@ -73,7 +108,9 @@ body,html{
     color:white;
 }
 
-/* 面板（修復重點🔥） */
+/* =========================
+   面板（已修消失問題🔥）
+========================= */
 .panel{
     position:relative;
 
@@ -95,9 +132,10 @@ body,html{
     border-radius:20px;
 
     min-height:200px;
+    max-width:420px;
 }
 
-/* 微光層 */
+/* 面板微光 */
 .panel::before{
     content:"";
     position:absolute;
@@ -113,32 +151,46 @@ body,html{
     pointer-events:none;
 }
 
-/* 三視圖 */
+/* =========================
+   三視圖
+========================= */
 .profile img{
     width:90px;
     margin-right:10px;
 }
 
-/* 角色 */
+/* =========================
+   角色區（主視覺🔥）
+========================= */
 .character{
     display:flex;
-    justify-content:center;
+    justify-content:flex-end;
     align-items:center;
+
+    padding-right:80px;
+
     position:relative;
+    z-index:5;
 }
 
+/* 角色 */
 .main-char{
-    height:85vh;
+    height:95vh;
+
     transition:0.4s;
+
     filter:drop-shadow(0 0 40px rgba(255,120,180,0.6));
 }
 
-/* 箭頭 */
+/* =========================
+   切換箭頭
+========================= */
 .arrow{
     position:absolute;
     top:50%;
     font-size:40px;
     cursor:pointer;
+
     opacity:0.6;
     transition:0.3s;
 }
@@ -150,7 +202,9 @@ body,html{
 .arrow.left{ left:30px;}
 .arrow.right{ right:30px;}
 
-/* Gallery */
+/* =========================
+   Gallery
+========================= */
 .gallery{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -167,7 +221,9 @@ body,html{
     transform:scale(1.1);
 }
 
-/* 燈箱 */
+/* =========================
+   燈箱
+========================= */
 .lightbox{
     position:fixed;
     inset:0;
@@ -175,24 +231,35 @@ body,html{
     display:none;
     justify-content:center;
     align-items:center;
+    z-index:20;
 }
 
 .lightbox img{
     max-width:80%;
 }
 
-/* RWD */
+/* =========================
+   響應式（手機🔥）
+========================= */
 @media(max-width:900px){
+
     .hero{
         grid-template-columns:1fr;
     }
 
     .ui{
         padding:40px;
+        max-width:none;
+    }
+
+    .panel{
+        max-width:none;
     }
 
     .character{
         height:40vh;
+        justify-content:center;
+        padding-right:0;
     }
 
     .main-char{
