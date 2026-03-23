@@ -52,25 +52,37 @@
             </div>
 
             <div id="profile-content" class="tab-content active">
-                <div class="view-panel">
-                    <div class="view-item">
-                        <div class="view-img-box">
-                            <img src="img/front_view.png" alt="Front" class="char-view">
+                <div class="profile-display-area">
+                    <div class="profile-panel active" id="panel-tri">
+                        <div class="view-panel">
+                            <div class="view-item">
+                                <div class="view-img-box"><img src="img/front_view.png" alt="Front" class="char-view"></div>
+                                <div class="view-label">FRONT VIEW</div>
+                            </div>
+                            <div class="view-item">
+                                <div class="view-img-box"><img src="img/side_view.png" alt="Side" class="char-view"></div>
+                                <div class="view-label">SIDE VIEW</div>
+                            </div>
+                            <div class="view-item">
+                                <div class="view-img-box"><img src="img/back_view.png" alt="Back" class="char-view"></div>
+                                <div class="view-label">BACK VIEW</div>
+                            </div>
                         </div>
-                        <div class="view-label">FRONT VIEW</div>
                     </div>
-                    <div class="view-item">
-                        <div class="view-img-box">
-                            <img src="img/side_view.png" alt="Side" class="char-view">
+
+                    <div class="profile-panel" id="panel-full">
+                        <div class="view-panel full-view-mode">
+                            <div class="view-img-box full-img-box">
+                                <img src="img/full_showcase.png" alt="Full" class="char-view">
+                            </div>
                         </div>
-                        <div class="view-label">SIDE VIEW</div>
                     </div>
-                    <div class="view-item">
-                        <div class="view-img-box">
-                            <img src="img/back_view.png" alt="Back" class="char-view">
-                        </div>
-                        <div class="view-label">BACK VIEW</div>
-                    </div>
+                </div>
+
+                <div class="profile-pagination">
+                    <div class="page-arrow p-prev">❮</div>
+                    <span class="page-num">1 / 2</span>
+                    <div class="page-arrow p-next">❯</div>
                 </div>
             </div>
 
