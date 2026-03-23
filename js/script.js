@@ -1,11 +1,11 @@
 let currentTab = "profile";
 
 /* TAB切換 */
-function switchTab(tab){
+function switchTab(e,tab){
     currentTab = tab;
 
     document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
-    event.target.classList.add("active");
+    e.target.classList.add("active");
 
     render();
 }
@@ -55,22 +55,22 @@ function closeLightbox(){
     document.getElementById("lightbox").style.display="none";
 }
 
-/* 角色切換 */
+/* 角色動畫（滑動感） */
 function nextChar(){
     const char = document.getElementById("char");
-    char.style.transform="translateX(100px)";
+    char.style.transform="translateX(120px) scale(0.95)";
 
     setTimeout(()=>{
-        char.style.transform="translateX(0)";
+        char.style.transform="translateX(0) scale(1)";
     },300);
 }
 
 function prevChar(){
     const char = document.getElementById("char");
-    char.style.transform="translateX(-100px)";
+    char.style.transform="translateX(-120px) scale(0.95)";
 
     setTimeout(()=>{
-        char.style.transform="translateX(0)";
+        char.style.transform="translateX(0) scale(1)";
     },300);
 }
 
@@ -98,8 +98,9 @@ function draw(){
     p.forEach(o=>{
         ctx.beginPath();
         ctx.arc(o.x,o.y,o.r,0,Math.PI*2);
-        ctx.fillStyle="pink";
+        ctx.fillStyle="rgba(255,150,200,0.8)";
         ctx.fill();
+
         o.x+=o.dx;
         o.y+=o.dy;
     });
@@ -112,6 +113,6 @@ document.addEventListener("mousemove",(e)=>{
     let x = (e.clientX/window.innerWidth -0.5)*20;
     let y = (e.clientY/window.innerHeight -0.5)*20;
 
-    document.querySelector(".main-char").style.transform =
+    document.getElementById("char").style.transform =
         `translate(${x}px,${y}px)`;
 });
