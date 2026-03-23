@@ -7,28 +7,33 @@
 
 body, html { margin: 0; padding: 0; height: 100%; background: #000; color: white; font-family: 'Segoe UI', sans-serif; overflow: hidden; }
 
+/* 滾動容器 */
 .scroll-container { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; }
 section { height: 100vh; scroll-snap-align: start; position: relative; overflow: hidden; }
 
-/* 第一屏樣式 */
+/* 第一屏 */
 .page-top { background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: flex-end; }
 .background-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, #000 100%); }
 .mid-nav { width: 100%; z-index: 10; padding-bottom: 50px; background: rgba(0,0,0,0.5); backdrop-filter: blur(15px); display: flex; flex-direction: column; align-items: center; }
 .tabs-top { display: flex; gap: 40px; margin-bottom: 25px; }
 .tab-item-top { font-weight: bold; color: #888; cursor: pointer; }
 .tab-item-top.active { color: var(--accent-red); border-bottom: 2px solid var(--accent-red); }
-
 .visual-swiper { width: 450px; height: 130px; margin-bottom: 20px; }
-.visual-swiper .swiper-slide { opacity: 0.4; transition: 0.5s; border-radius: 6px; overflow: hidden; border: 1px solid var(--glass-border); }
-.visual-swiper .swiper-slide-active { opacity: 1; border-color: var(--accent-red); transform: scale(1.1); }
-.visual-swiper .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
-
+.swiper-slide { opacity: 0.4; transition: 0.5s; border-radius: 6px; overflow: hidden; border: 1px solid var(--glass-border); }
+.swiper-slide-active { opacity: 1; border-color: var(--accent-red); transform: scale(1.1); }
+.swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
 .visual-footer { display: flex; align-items: center; gap: 15px; }
 .line { width: 100px; height: 1px; background: linear-gradient(to right, transparent, var(--accent-red), transparent); }
-.nav-arrow { cursor: pointer; color: var(--accent-red); font-size: 1.2rem; }
 
-/* 第二屏樣式 */
-.page-bottom { display: grid; grid-template-columns: 1.4fr 1fr; padding: 40px 80px; box-sizing: border-box; align-items: start; }
+/* 第二屏佈局：左側上移 */
+.page-bottom {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    padding: 40px 80px;
+    box-sizing: border-box;
+    align-items: start;
+}
+
 .char-name { font-size: 4.5rem; margin: 0; letter-spacing: -2px; }
 .stats { font-size: 1.1rem; color: #aaa; margin: 10px 0 20px; line-height: 1.6; }
 
@@ -36,37 +41,62 @@ section { height: 100vh; scroll-snap-align: start; position: relative; overflow:
 .s-tab { padding: 8px 24px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 4px; color: #888; cursor: pointer; transition: 0.3s; }
 .s-tab.active { background: #4a252f; color: white; border-color: var(--accent-red); box-shadow: 0 0 10px rgba(255,77,109,0.2); }
 
-/* Profile 輪播區域 */
-.profile-swiper-container { position: relative; width: 100%; }
-.profile-swiper { width: 100%; }
-
-.view-panel, .full-view-panel {
-    display: flex; gap: 15px; background: var(--glass-bg); padding: 25px; 
-    border-radius: 12px; border: 1px solid var(--glass-border); 
-    backdrop-filter: blur(20px); height: 380px; box-sizing: border-box;
+/* 三視圖展示面板 */
+.view-panel {
+    display: flex;
+    gap: 15px;
+    background: var(--glass-bg);
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px);
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.8);
 }
 
-.view-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; }
-.view-img-box { width: 100%; height: 300px; display: flex; align-items: flex-end; justify-content: center; }
-
-/* 核心：限制圖片比例，防止放大 */
-.char-view, .full-char-img { 
-    max-width: 100%; max-height: 100%; object-fit: contain; 
-    filter: drop-shadow(0 0 8px rgba(255, 77, 109, 0.3)); transition: 0.3s;
+/* 底部裝飾條 */
+.view-panel::after {
+    content: ""; position: absolute; bottom: 0; right: 0;
+    width: 70%; height: 1px;
+    background: linear-gradient(to right, transparent, var(--accent-blue));
+    box-shadow: 0 0 10px var(--accent-blue);
 }
-.view-item:hover .char-view, .full-char-img:hover { transform: translateY(-8px); filter: drop-shadow(0 0 15px var(--accent-red)); }
 
-.view-label { font-size: 10px; letter-spacing: 2px; color: var(--accent-blue); font-weight: bold; margin-top: 10px; }
+.view-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 12px; }
 
-/* Profile 專用箭頭 */
-.profile-nav { display: flex; justify-content: center; gap: 40px; margin-top: 15px; }
-.p-prev, .p-next { color: var(--accent-blue); cursor: pointer; font-size: 1.5rem; transition: 0.3s; }
-.p-prev:hover, .p-next:hover { color: var(--accent-red); text-shadow: 0 0 10px var(--accent-red); }
+.view-img-box {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    overflow: visible; /* 讓發光效果可以超出框框 */
+    display: flex;
+    align-items: flex-end; /* 讓角色站在底部 */
+    justify-content: center;
+}
 
-.tab-content { display: none; }
-.tab-content.active { display: block; animation: fadeIn 0.4s ease; }
+/* 核心：透明 PNG 發光與浮起效果 */
+.char-view {
+    width: 90%;
+    height: 95%;
+    object-fit: contain;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* 對透明邊緣產生的發光效果 */
+    filter: drop-shadow(0 0 5px rgba(255, 77, 109, 0.2));
+}
+
+/* 懸停時的效果 */
+.view-item:hover .char-view {
+    transform: translateY(-10px) scale(1.05); /* 浮起並輕微放大 */
+    filter: drop-shadow(0 0 15px var(--accent-red)) drop-shadow(0 10px 5px rgba(0,0,0,0.5));
+}
+
+.view-label { font-size: 10px; letter-spacing: 2px; color: var(--accent-blue); font-weight: bold; opacity: 0.6; }
+
+.tab-content { display: none; animation: fadeIn 0.4s ease; }
+.tab-content.active { display: block; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
 .full-body-visual { background-size: contain; background-repeat: no-repeat; background-position: center bottom; height: 90vh; }
-.scroll-hint { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: var(--accent-red); animation: bounce 2s infinite; z-index: 5; }
+.scroll-hint { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: var(--accent-red); animation: bounce 2s infinite; }
 @keyframes bounce { 0%, 100% { transform: translateY(0) translateX(-50%); } 50% { transform: translateY(-10px) translateX(-50%); } }
