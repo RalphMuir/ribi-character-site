@@ -31,3 +31,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+    // 在 DOMContentLoaded 裡面加入
+    const profileSwiper = new Swiper('.profile-swiper', {
+        slidesPerView: 1,      // 一次顯示一頁面板
+        spaceBetween: 30,     // 面板間距
+        grabCursor: true,     // 滑鼠抓取手勢
+        navigation: {
+            nextEl: '.p-next',
+            prevEl: '.p-prev',
+        },
+    });
+    
+    // 記得在 Tab 切換邏輯中加入這行，防止 Swiper 因為隱藏而計算錯誤
+    if (target === 'profile-content') {
+        setTimeout(() => profileSwiper.update(), 100);
+    }
