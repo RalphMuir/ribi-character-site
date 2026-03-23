@@ -15,9 +15,11 @@
     <!-- 背景 -->
     <div class="bg"></div>
 
-    <!-- UI區 -->
-    <div class="ui">
+    <!-- 粒子 -->
+    <canvas id="particles"></canvas>
 
+    <!-- 左UI -->
+    <div class="ui">
         <h1 class="name">Ribi.</h1>
 
         <div class="info">
@@ -29,11 +31,11 @@
         <!-- Tabs -->
         <div class="tabs">
             <button class="tab active" data-tab="profile">PROFILE</button>
-            <button class="tab" data-tab="skills">STREAM</button>
+            <button class="tab" data-tab="stream">STREAM</button>
             <button class="tab" data-tab="gallery">GALLERY</button>
         </div>
 
-        <!-- 內容 -->
+        <!-- Panel -->
         <div class="panel">
 
             <!-- PROFILE -->
@@ -46,14 +48,10 @@
             </div>
 
             <!-- STREAM -->
-            <div class="tab-content" id="skills">
-                <iframe 
-                    width="100%" 
-                    height="200"
-                    src="https://www.youtube.com/embed?listType=user_uploads&list=CHANNEL_ID"
-                    frameborder="0"
-                    allowfullscreen>
-                </iframe>
+            <div class="tab-content" id="stream">
+                <iframe width="100%" height="200"
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                frameborder="0" allowfullscreen></iframe>
             </div>
 
             <!-- GALLERY -->
@@ -68,7 +66,7 @@
         </div>
     </div>
 
-    <!-- 主角色 -->
+    <!-- 右角色 -->
     <div class="character">
         <img src="img/full-body.png" class="main-char">
     </div>
