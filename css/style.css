@@ -3,24 +3,38 @@ body,html{
     background:#0b0b0f;
     color:white;
     font-family:sans-serif;
+    overflow:hidden;
 }
 
-/* 背景 */
+/* 背景（關鍵🔥） */
 .bg{
     position:absolute;
     inset:0;
-    background:linear-gradient(120deg,#0b0b0f,#151522);
+    background:
+        linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)),
+        url('../img/bg_art.png');
+    background-size:cover;
+    background-position:center;
+    filter: blur(12px);
+    transform: scale(1.1);
     z-index:0;
 }
 
-/* UI */
+/* 粒子 */
+#particles{
+    position:absolute;
+    inset:0;
+    z-index:1;
+}
+
+/* 主畫面 */
 .hero{
-    height:100vh;
     display:flex;
+    height:100vh;
     position:relative;
 }
 
-/* 左 */
+/* 左UI */
 .ui{
     width:40%;
     padding:80px;
@@ -28,7 +42,7 @@ body,html{
 }
 
 .name{
-    font-size:60px;
+    font-size:64px;
     margin-bottom:10px;
 }
 
@@ -46,8 +60,8 @@ body,html{
 
 .tab{
     padding:10px 20px;
-    border:none;
     background:#222;
+    border:none;
     color:#aaa;
     cursor:pointer;
     transition:0.3s;
@@ -56,17 +70,19 @@ body,html{
 .tab.active{
     background:#ff4d6d;
     color:white;
+    box-shadow:0 0 10px rgba(255,77,109,0.6);
 }
 
 /* panel */
 .panel{
     background:rgba(255,255,255,0.05);
     padding:20px;
-    border-radius:10px;
-    backdrop-filter:blur(10px);
+    border-radius:12px;
+    backdrop-filter:blur(15px);
+    box-shadow:0 0 20px rgba(0,0,0,0.6);
 }
 
-/* content切換 */
+/* tab內容 */
 .tab-content{
     display:none;
 }
@@ -83,6 +99,11 @@ body,html{
 
 .views img{
     width:100px;
+    transition:0.3s;
+}
+
+.views img:hover{
+    transform:scale(1.1);
 }
 
 /* gallery */
@@ -95,7 +116,7 @@ body,html{
     width:100px;
 }
 
-/* 角色 */
+/* 右角色 */
 .character{
     width:60%;
     display:flex;
@@ -104,23 +125,37 @@ body,html{
     position:relative;
 }
 
-/* 光效 */
+/* 光圈 */
 .character::before{
     content:"";
     position:absolute;
     width:500px;
     height:500px;
-    background:radial-gradient(circle, rgba(255,100,150,0.3), transparent);
+    background:radial-gradient(circle, rgba(255,120,180,0.3), transparent);
     filter:blur(80px);
 }
 
-/* 主角色動畫 */
+/* 主角色 */
 .main-char{
     height:90vh;
-    animation:float 4s infinite ease-in-out;
-    filter:drop-shadow(0 0 20px rgba(255,100,150,0.5));
+    animation:enter 1s ease forwards,
+              float 4s ease-in-out infinite;
+    filter:drop-shadow(0 0 30px rgba(255,100,150,0.6));
 }
 
+/* 進場動畫 */
+@keyframes enter{
+    from{
+        opacity:0;
+        transform:translateY(50px) scale(0.9);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+/* 浮動 */
 @keyframes float{
     0%,100%{transform:translateY(0);}
     50%{transform:translateY(-20px);}
