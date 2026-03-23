@@ -1,139 +1,106 @@
 body,html{
     margin:0;
     padding:0;
-    background:#000;
-    color:#fff;
+    background:#0b0b0f;
+    color:white;
     font-family:sans-serif;
     overflow:hidden;
 }
 
-/* scroll */
-.scroll-container{
-    height:100vh;
-    overflow-y:scroll;
-    scroll-snap-type:y mandatory;
-}
-
-section{
-    height:100vh;
-    scroll-snap-align:start;
-}
-
-/* HERO */
+/* 主畫面 */
 .hero{
+    display:flex;
+    height:100vh;
     position:relative;
-    overflow:hidden;
 }
 
-.bg{
+/* 粒子canvas */
+#particles{
     position:absolute;
     inset:0;
-    background-size:cover;
-    background-position:center;
-    transition:0.5s;
+    z-index:0;
 }
 
-/* 視差 */
-.hero:hover .bg{
-    transform:scale(1.1);
+/* 左側 */
+.left{
+    width:40%;
+    padding:80px;
+    z-index:2;
 }
 
-/* UI */
-.top-ui{
-    position:absolute;
-    bottom:80px;
-    width:100%;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-}
-
-/* Tabs */
-.tabs{
-    display:flex;
-    gap:40px;
+.name{
+    font-size:64px;
     margin-bottom:20px;
+    letter-spacing:-2px;
 }
 
-.tab{
-    opacity:0.5;
-    cursor:pointer;
+.info{
+    color:#aaa;
+    line-height:1.6;
 }
 
-.tab.active{
-    opacity:1;
-    text-shadow:0 0 10px #ff4d6d;
-}
-
-/* Swiper */
-.mySwiper{
-    width:400px;
-}
-
-.swiper-slide{
-    transform:scale(0.7);
-    opacity:0.4;
-    transition:0.4s;
-}
-
-.swiper-slide-active{
-    transform:scale(1.2);
-    opacity:1;
-}
-
-/* content */
-.content{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    padding:50px;
-}
-
-/* left */
-.view-panel{
+/* 三視圖 */
+.views{
+    margin-top:40px;
     display:flex;
-    gap:10px;
-    margin-top:20px;
+    gap:15px;
 }
 
-.view-img{
-    width:120px;
-    min-height:150px;
-    object-fit:contain;
-    background:rgba(255,255,255,0.05);
+.views img{
+    width:100px;
+    opacity:0.7;
+    transition:0.3s;
 }
 
-.view-img:hover{
+.views img:hover{
     transform:scale(1.1);
+    opacity:1;
 }
 
-/* right */
+/* 右側 */
 .right{
+    width:60%;
     display:flex;
     justify-content:center;
     align-items:center;
+    position:relative;
 }
 
+/* 光圈 */
+.right::before{
+    content:"";
+    position:absolute;
+    width:500px;
+    height:500px;
+    background:radial-gradient(circle, rgba(255,120,180,0.25), transparent);
+    filter:blur(80px);
+}
+
+/* 主角色 */
 .main-char{
-    height:80vh;
-    object-fit:contain;
-    animation:float 4s infinite ease-in-out;
+    height:85vh;
+    z-index:2;
+
+    /* 進場動畫 */
+    opacity:0;
+    transform:translateY(50px) scale(0.9);
+
+    animation:enter 1s ease forwards,
+              float 4s ease-in-out infinite;
+
+    filter:drop-shadow(0 0 25px rgba(255,100,150,0.5));
 }
 
+/* 進場 */
+@keyframes enter{
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+/* 浮動 */
 @keyframes float{
     0%,100%{transform:translateY(0);}
     50%{transform:translateY(-20px);}
-}
-
-/* scroll hint */
-.scroll-hint{
-    position:absolute;
-    bottom:20px;
-    left:50%;
-    transform:translateX(-50%);
-    animation:bounce 2s infinite;
-}
-
-@keyframes bounce{
-    0%,100%{transform:translate(-50%,0);}
-    50%{transform:translate(-50%,-10px);}
 }
