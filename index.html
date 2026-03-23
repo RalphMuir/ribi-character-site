@@ -12,44 +12,46 @@
 
 <div class="hero">
 
+    <!-- 背景 -->
     <div class="bg"></div>
     <canvas id="particles"></canvas>
 
-    <!-- 左UI -->
+    <!-- 左側 UI -->
     <div class="ui">
-        <h1 class="name" id="charName">Ribi.</h1>
 
-        <div class="info" id="charInfo">
+        <h1 class="name">Ribi.</h1>
+
+        <div class="info">
             Age : 19<br>
             Height : 158cm<br>
-            Personality : Cheerful
+            Personality : Cheerful & Curious
         </div>
 
-        <!-- 書本 -->
-        <div class="book" id="book">
-
-            <!-- 左頁 -->
-            <div class="page left-page">
-                <div class="page-content" id="pageLeft"></div>
-            </div>
-
-            <!-- 右頁 -->
-            <div class="page right-page">
-                <div class="page-content" id="pageRight"></div>
-            </div>
-
+        <!-- TAB -->
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('profile')">PROFILE</button>
+            <button class="tab" onclick="switchTab('stream')">STREAM</button>
+            <button class="tab" onclick="switchTab('gallery')">GALLERY</button>
         </div>
+
+        <!-- 面板 -->
+        <div class="panel" id="panel"></div>
 
     </div>
 
     <!-- 角色 -->
     <div class="character">
-        <img id="mainChar" src="img/full-body.png" class="main-char">
+        <img src="img/full-body.png" class="main-char" id="char">
 
         <div class="arrow left" onclick="prevChar()">❮</div>
         <div class="arrow right" onclick="nextChar()">❯</div>
     </div>
 
+</div>
+
+<!-- 燈箱 -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <img id="lightbox-img">
 </div>
 
 <script src="js/script.js"></script>
