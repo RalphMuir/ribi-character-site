@@ -1,112 +1,90 @@
+/* 定義更細緻的顏色變數 */
 :root {
     --accent-red: #ff4d6d;
-    --bg-dark: #0a0a0c;
-    --panel-bg: rgba(20, 20, 25, 0.9);
+    --accent-blue: #4cc9f0;
+    --glass-bg: rgba(20, 20, 25, 0.7); /* 半透明背景 */
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --panel-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
 }
 
-body, html {
-    margin: 0; padding: 0; height: 100%;
-    background: var(--bg-dark); color: white;
-    font-family: 'Segoe UI', sans-serif;
-    overflow: hidden;
-}
-
-.scroll-container {
-    height: 100vh;
-    overflow-y: scroll;
-    scroll-snap-type: y mandatory;
-}
-
-section {
-    height: 100vh;
-    scroll-snap-align: start;
-    position: relative;
-    overflow: hidden;
-}
-
-/* 第一屏：視覺展示區 */
-.page-top {
-    background-size: cover;
-    background-position: center;
-    /* 關鍵：移除了 transition: background-image 0.8s ...，因為不需要背景切換動畫 */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-    background-color: var(--bg-dark); /* 提供一個底色防止圖片未載入時的突兀感 */
-}
-
-.background-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, transparent 40%, var(--bg-dark));
-    z-index: 1; /* 確保遮罩在圖片之上 */
-}
-
+/* 中間導航區：玻璃擬態與模糊效果 */
 .mid-nav {
-    width: 100%; z-index: 10; padding-bottom: 40px;
-    background: rgba(0,0,0,0.5); backdrop-filter: blur(8px);
+    width: 100%; 
+    z-index: 10; 
+    padding: 30px 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,1) 100%);
+    backdrop-filter: blur(10px); /* 關鍵：背景模糊 */
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid var(--glass-border);
 }
 
-.tabs { display: flex; justify-content: center; gap: 40px; margin-bottom: 20px; font-weight: bold; }
-.tab-item { cursor: pointer; color: #888; transition: 0.3s; }
-.tab-item.active { color: var(--accent-red); border-bottom: 2px solid var(--accent-red); }
-
-.visual-swiper { width: 450px; height: 130px; margin-bottom: 15px; }
-.swiper-slide { opacity: 0.4; transition: 0.4s; cursor: pointer; border-radius: 8px; overflow: hidden; border: 2px solid transparent; }
-.swiper-slide-active { opacity: 1; border-color: var(--accent-red); transform: scale(1.1); }
-.swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
-
-.visual-footer { display: flex; align-items: center; justify-content: center; gap: 15px; z-index: 10;}
-.line { width: 100px; height: 1px; background: linear-gradient(to right, transparent, var(--accent-red), transparent); }
-.nav-arrow { color: var(--accent-red); cursor: pointer; font-size: 24px; user-select: none; }
-
-/* 第二屏 */
-.page-bottom {
-    display: grid; grid-template-columns: 1fr 1fr;
-    padding: 60px; box-sizing: border-box; background: #050505;
-}
-
-.info-box {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    z-index: 2;
-}
-
-.char-name { font-size: 4rem; margin: 0; }
-.stats { font-size: 1.1rem; color: #aaa; margin: 20px 0; line-height: 1.6; }
-
-.skill-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
-.s-tab { padding: 8px 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; color: #aaa; cursor: pointer; transition: 0.3s; }
-.s-tab.active { background: linear-gradient(to bottom, #7d3c4a, #4a252f); color: white; border-color: var(--accent-red); }
-
-.skill-list { width: 100%; max-width: 400px; }
+/* 技能卡片：透明漸層浮框設計 */
 .skill-item {
-    background: var(--panel-bg); border-left: 4px solid var(--accent-red);
-    padding: 15px; margin-bottom: 15px; display: flex; gap: 20px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(5px);
+    border: 1px solid var(--glass-border); /* 全屏細邊框 */
+    border-left: 4px solid var(--accent-red); /* 左側重點色 */
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 20px;
     position: relative;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    border-radius: 4px;
+    box-shadow: var(--panel-shadow);
+    transition: transform 0.3s ease;
 }
 
+.skill-item:hover {
+    transform: translateX(10px); /* 懸停時輕微右移，增加互動感 */
+    background: rgba(40, 40, 45, 0.8);
+}
+
+/* 技能卡片底部的藍色發光線（如圖示細節） */
 .skill-item::after {
-    content: ""; position: absolute; bottom: 0; right: 10px;
-    width: 50%; height: 1px; background: #4cc9f0; box-shadow: 0 0 10px #4cc9f0;
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--accent-blue));
+    box-shadow: 0 0 15px var(--accent-blue);
+    opacity: 0.6;
 }
 
-.skill-icon { width: 60px; height: 60px; background: #222; flex-shrink: 0; }
-.skill-info h3 { margin: 0; font-size: 1.2rem; }
-.skill-info p { margin: 5px 0 0 0; font-size: 0.9rem; color: #bbb; line-height: 1.4; }
+/* 技能圖示外框發光 */
+.skill-icon {
+    width: 65px;
+    height: 65px;
+    background: #000;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: inset 0 0 10px rgba(255, 77, 109, 0.2);
+    flex-shrink: 0;
+}
 
-.full-body-visual { background-size: contain; background-repeat: no-repeat; background-position: center; z-index: 1; }
+/* Swiper 縮圖的漸層外框 */
+.swiper-slide {
+    opacity: 0.5;
+    transition: 0.5s;
+    border-radius: 5px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
 
-.scroll-hint { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: var(--accent-red); animation: bounce 2s infinite; z-index: 10; cursor: pointer; }
-@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.swiper-slide-active {
+    opacity: 1;
+    transform: scale(1.1);
+    border: 1px solid var(--accent-red);
+    box-shadow: 0 0 20px rgba(255, 77, 109, 0.4);
+}
 
-/* 針對小螢幕的響應式調整 */
-@media (max-width: 768px) {
-    .page-bottom { grid-template-columns: 1fr; gap: 20px; padding: 30px; }
-    .full-body-visual { height: 300px; }
-    .visual-swiper { width: 300px; }
-    .line { width: 50px; }
+/* 文字陰影與發光感 */
+.char-name {
+    font-size: 4.5rem;
+    font-weight: 900;
+    margin: 0;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    background: linear-gradient(to bottom, #fff, #aaa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
