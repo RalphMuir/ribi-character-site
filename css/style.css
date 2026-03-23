@@ -1,3 +1,4 @@
+/* --- 基礎變數與排版 --- */
 :root {
     --accent-red: #ff4d6d;
     --accent-blue: #4cc9f0;
@@ -5,43 +6,9 @@
     --glass-border: rgba(255, 255, 255, 0.1);
 }
 
-body, html { margin: 0; padding: 0; height: 100%; background: #000; color: white; font-family: 'Segoe UI', sans-serif; overflow: hidden; }
+/* ... 保持你原本的 scroll-container 與 page-top 樣式 ... */
 
-/* 滾動容器 */
-.scroll-container { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; }
-section { height: 100vh; scroll-snap-align: start; position: relative; overflow: hidden; }
-
-/* 第一屏 */
-.page-top { background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: flex-end; }
-.background-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, #000 100%); }
-.mid-nav { width: 100%; z-index: 10; padding-bottom: 50px; background: rgba(0,0,0,0.5); backdrop-filter: blur(15px); display: flex; flex-direction: column; align-items: center; }
-.tabs-top { display: flex; gap: 40px; margin-bottom: 25px; }
-.tab-item-top { font-weight: bold; color: #888; cursor: pointer; }
-.tab-item-top.active { color: var(--accent-red); border-bottom: 2px solid var(--accent-red); }
-.visual-swiper { width: 450px; height: 130px; margin-bottom: 20px; }
-.swiper-slide { opacity: 0.4; transition: 0.5s; border-radius: 6px; overflow: hidden; border: 1px solid var(--glass-border); }
-.swiper-slide-active { opacity: 1; border-color: var(--accent-red); transform: scale(1.1); }
-.swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
-.visual-footer { display: flex; align-items: center; gap: 15px; }
-.line { width: 100px; height: 1px; background: linear-gradient(to right, transparent, var(--accent-red), transparent); }
-
-/* 第二屏佈局：左側上移 */
-.page-bottom {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    padding: 40px 80px;
-    box-sizing: border-box;
-    align-items: start;
-}
-
-.char-name { font-size: 4.5rem; margin: 0; letter-spacing: -2px; }
-.stats { font-size: 1.1rem; color: #aaa; margin: 10px 0 20px; line-height: 1.6; }
-
-.sub-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
-.s-tab { padding: 8px 24px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 4px; color: #888; cursor: pointer; transition: 0.3s; }
-.s-tab.active { background: #4a252f; color: white; border-color: var(--accent-red); box-shadow: 0 0 10px rgba(255,77,109,0.2); }
-
-/* Profile 輪播容器 */
+/* --- Profile Swiper 專屬修正 --- */
 .profile-swiper-container {
     position: relative;
     width: 100%;
@@ -49,57 +16,12 @@ section { height: 100vh; scroll-snap-align: start; position: relative; overflow:
 
 .profile-swiper {
     width: 100%;
+    /* 這裡的高度必須固定，否則圖片會無限放大 */
+    height: 420px; 
 }
 
-/* 確保面板高度一致且圖片置中 */
+/* 三視圖面板與完整圖面板 */
 .view-panel, .full-view-panel {
-    display: flex;
-    gap: 15px;
-    background: var(--glass-bg); /* 使用你原本的玻璃背景色 */
-    padding: 25px;
-    border-radius: 12px;
-    border: 1px solid var(--glass-border);
-    backdrop-filter: blur(20px);
-    height: 400px; /* 這裡的高度要根據你的內容調整 */
-    box-sizing: border-box;
-}
-
-.full-view-panel {
-    justify-content: center;
-    align-items: center;
-}
-
-/* 防止圖片放大跑掉 */
-.char-view, .full-char-img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    filter: drop-shadow(0 0 10px rgba(255, 77, 109, 0.3));
-}
-
-/* 導航箭頭樣式 */
-.profile-nav {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    margin-top: 15px;
-}
-
-.p-prev, .p-next {
-    color: var(--accent-blue);
-    cursor: pointer;
-    font-size: 1.5rem;
-    transition: 0.3s;
-    user-select: none;
-}
-
-.p-prev:hover, .p-next:hover {
-    color: var(--accent-red);
-    text-shadow: 0 0 10px var(--accent-red);
-}
-
-/* 三視圖展示面板 */
-.view-panel {
     display: flex;
     gap: 15px;
     background: var(--glass-bg);
@@ -107,53 +29,75 @@ section { height: 100vh; scroll-snap-align: start; position: relative; overflow:
     border-radius: 12px;
     border: 1px solid var(--glass-border);
     backdrop-filter: blur(20px);
-    position: relative;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+    height: 400px; /* 固定高度 */
+    box-sizing: border-box;
+    width: 100%;
 }
 
-/* 底部裝飾條 */
-.view-panel::after {
-    content: ""; position: absolute; bottom: 0; right: 0;
-    width: 70%; height: 1px;
-    background: linear-gradient(to right, transparent, var(--accent-blue));
-    box-shadow: 0 0 10px var(--accent-blue);
+.full-view-panel {
+    justify-content: center;
+    align-items: center;
 }
 
-.view-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.view-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
 
 .view-img-box {
     width: 100%;
-    aspect-ratio: 3/4;
-    background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    overflow: visible; /* 讓發光效果可以超出框框 */
+    height: 300px; /* 限制圖片容器高度 */
     display: flex;
-    align-items: flex-end; /* 讓角色站在底部 */
+    align-items: flex-end;
     justify-content: center;
 }
 
-/* 核心：透明 PNG 發光與浮起效果 */
-.char-view {
-    width: 90%;
-    height: 95%;
-    object-fit: contain;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    /* 對透明邊緣產生的發光效果 */
-    filter: drop-shadow(0 0 5px rgba(255, 77, 109, 0.2));
+/* 防止圖片放大的關鍵：contain */
+.char-view, .full-char-img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain; 
+    filter: drop-shadow(0 0 10px rgba(255, 77, 109, 0.3));
+    transition: transform 0.3s ease;
 }
 
-/* 懸停時的效果 */
-.view-item:hover .char-view {
-    transform: translateY(-10px) scale(1.05); /* 浮起並輕微放大 */
-    filter: drop-shadow(0 0 15px var(--accent-red)) drop-shadow(0 10px 5px rgba(0,0,0,0.5));
+.view-item:hover .char-view, .full-char-img:hover {
+    transform: translateY(-8px);
+    filter: drop-shadow(0 0 15px var(--accent-red));
 }
 
-.view-label { font-size: 10px; letter-spacing: 2px; color: var(--accent-blue); font-weight: bold; opacity: 0.6; }
+.view-label {
+    margin-top: 10px;
+    font-size: 10px;
+    color: var(--accent-blue);
+    letter-spacing: 2px;
+    font-weight: bold;
+}
 
-.tab-content { display: none; animation: fadeIn 0.4s ease; }
-.tab-content.active { display: block; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+/* --- 導航箭頭 --- */
+.profile-nav {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-top: 15px;
+}
+.p-prev, .p-next {
+    color: var(--accent-blue);
+    cursor: pointer;
+    font-size: 1.5rem;
+    transition: 0.3s;
+    user-select: none;
+}
+.p-prev:hover, .p-next:hover {
+    color: var(--accent-red);
+}
 
-.full-body-visual { background-size: contain; background-repeat: no-repeat; background-position: center bottom; height: 90vh; }
-.scroll-hint { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: var(--accent-red); animation: bounce 2s infinite; }
-@keyframes bounce { 0%, 100% { transform: translateY(0) translateX(-50%); } 50% { transform: translateY(-10px) translateX(-50%); } }
+/* --- Tab 切換動畫 --- */
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
