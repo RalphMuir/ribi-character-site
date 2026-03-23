@@ -15,7 +15,7 @@ body,html{
         url('../img/bg_art.png');
     background-size:cover;
     background-position:center;
-    filter:blur(10px);
+    filter:blur(12px);
 }
 
 /* 粒子 */
@@ -27,13 +27,15 @@ body,html{
 /* 主畫面 */
 .hero{
     display:grid;
-    grid-template-columns:1fr 1fr;
+    grid-template-columns: 45% 55%;
     height:100vh;
 }
 
-/* UI */
+/* 左UI */
 .ui{
-    padding:80px;
+    position:relative;
+    z-index:10;
+    padding:60px 60px 60px 80px;
 }
 
 .name{
@@ -59,6 +61,11 @@ body,html{
     border:none;
     color:#aaa;
     cursor:pointer;
+    transition:0.3s;
+}
+
+.tab:hover{
+    background:#444;
 }
 
 .tab.active{
@@ -66,18 +73,44 @@ body,html{
     color:white;
 }
 
-/* 面板 */
+/* 面板（修復重點🔥） */
 .panel{
-    background:rgba(255,255,255,0.05);
-    backdrop-filter:blur(20px);
+    position:relative;
+
+    background: linear-gradient(
+        145deg,
+        rgba(25,25,35,0.9),
+        rgba(15,15,25,0.95)
+    );
+
+    border:1px solid rgba(255,255,255,0.1);
+
+    backdrop-filter: blur(10px);
+
+    box-shadow:
+        0 0 40px rgba(255,100,150,0.2),
+        inset 0 0 10px rgba(255,255,255,0.05);
+
     padding:25px;
     border-radius:20px;
 
-    box-shadow:
-        0 0 30px rgba(255,100,150,0.2),
-        inset 0 0 20px rgba(255,255,255,0.05);
-
     min-height:200px;
+}
+
+/* 微光層 */
+.panel::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:20px;
+
+    background:linear-gradient(
+        to right,
+        rgba(255,255,255,0.05),
+        transparent
+    );
+
+    pointer-events:none;
 }
 
 /* 三視圖 */
@@ -96,8 +129,8 @@ body,html{
 
 .main-char{
     height:85vh;
-    transition:0.6s;
-    filter:drop-shadow(0 0 30px pink);
+    transition:0.4s;
+    filter:drop-shadow(0 0 40px rgba(255,120,180,0.6));
 }
 
 /* 箭頭 */
@@ -106,6 +139,12 @@ body,html{
     top:50%;
     font-size:40px;
     cursor:pointer;
+    opacity:0.6;
+    transition:0.3s;
+}
+
+.arrow:hover{
+    opacity:1;
 }
 
 .arrow.left{ left:30px;}
@@ -147,9 +186,15 @@ body,html{
     .hero{
         grid-template-columns:1fr;
     }
+
+    .ui{
+        padding:40px;
+    }
+
     .character{
         height:40vh;
     }
+
     .main-char{
         height:100%;
     }
