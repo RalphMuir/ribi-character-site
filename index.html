@@ -51,28 +51,39 @@
                 <button class="s-tab" data-target="gallery-content">Gallery</button>
             </div>
 
-            <div id="profile-content" class="tab-content active">
-                <div class="view-panel">
-                    <div class="view-item">
-                        <div class="view-img-box">
-                            <img src="img/front_view.png" alt="Front" class="char-view">
+          <div id="profile-content" class="tab-content active">
+    <div class="profile-swiper-container">
+        <div class="swiper profile-swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="view-panel">
+                        <div class="view-item">
+                            <div class="view-img-box"><img src="img/front_view.png" alt="Front" class="char-view"></div>
+                            <div class="view-label">FRONT VIEW</div>
                         </div>
-                        <div class="view-label">FRONT VIEW</div>
+                        <div class="view-item">
+                            <div class="view-img-box"><img src="img/side_view.png" alt="Side" class="char-view"></div>
+                            <div class="view-label">SIDE VIEW</div>
+                        </div>
+                        <div class="view-item">
+                            <div class="view-img-box"><img src="img/back_view.png" alt="Back" class="char-view"></div>
+                            <div class="view-label">BACK VIEW</div>
+                        </div>
                     </div>
-                    <div class="view-item">
-                        <div class="view-img-box">
-                            <img src="img/side_view.png" alt="Side" class="char-view">
-                        </div>
-                        <div class="view-label">SIDE VIEW</div>
-                    </div>
-                    <div class="view-item">
-                        <div class="view-img-box">
-                            <img src="img/back_view.png" alt="Back" class="char-view">
-                        </div>
-                        <div class="view-label">BACK VIEW</div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="full-view-panel">
+                        <img src="img/full_showcase.png" alt="Full Showcase" class="full-char-img">
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="profile-nav">
+            <div class="p-prev">❮</div>
+            <div class="p-next">❯</div>
+        </div>
+    </div>
+</div>
 
             <div id="skills-content" class="tab-content">
                 <p class="empty-text">Skill system loading...</p>
