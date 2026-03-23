@@ -1,6 +1,5 @@
 let currentTab = "profile";
 
-/* TAB切換 */
 function switchTab(e,tab){
     currentTab = tab;
 
@@ -10,7 +9,6 @@ function switchTab(e,tab){
     render();
 }
 
-/* 渲染內容 */
 function render(){
     const panel = document.getElementById("panel");
 
@@ -20,16 +18,13 @@ function render(){
             <img src="img/front_view.png">
             <img src="img/side_view.png">
             <img src="img/back_view.png">
-        </div>
-        `;
+        </div>`;
     }
 
     if(currentTab==="stream"){
         panel.innerHTML = `
         <iframe width="100%" height="200"
-        src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-        frameborder="0"></iframe>
-        `;
+        src="https://www.youtube.com/embed/dQw4w9WgXcQ"></iframe>`;
     }
 
     if(currentTab==="gallery"){
@@ -38,14 +33,12 @@ function render(){
             <img src="img/g1.png" onclick="openLightbox(this.src)">
             <img src="img/g2.png" onclick="openLightbox(this.src)">
             <img src="img/g3.png" onclick="openLightbox(this.src)">
-        </div>
-        `;
+        </div>`;
     }
 }
 
 render();
 
-/* 燈箱 */
 function openLightbox(src){
     document.getElementById("lightbox").style.display="flex";
     document.getElementById("lightbox-img").src=src;
@@ -55,41 +48,31 @@ function closeLightbox(){
     document.getElementById("lightbox").style.display="none";
 }
 
-/* 角色動畫（滑動感） */
 function nextChar(){
-    const char = document.getElementById("char");
-    char.style.transform="translateX(120px) scale(0.95)";
-
-    setTimeout(()=>{
-        char.style.transform="translateX(0) scale(1)";
-    },300);
+    const c=document.getElementById("char");
+    c.style.transform="translateX(100px)";
+    setTimeout(()=>c.style.transform="translateX(0)",300);
 }
 
 function prevChar(){
-    const char = document.getElementById("char");
-    char.style.transform="translateX(-120px) scale(0.95)";
-
-    setTimeout(()=>{
-        char.style.transform="translateX(0) scale(1)";
-    },300);
+    const c=document.getElementById("char");
+    c.style.transform="translateX(-100px)";
+    setTimeout(()=>c.style.transform="translateX(0)",300);
 }
 
 /* 粒子 */
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
 
 let p=[];
-
-for(let i=0;i<60;i++){
+for(let i=0;i<50;i++){
     p.push({
         x:Math.random()*canvas.width,
         y:Math.random()*canvas.height,
-        r:Math.random()*2,
-        dx:(Math.random()-0.5)*0.5,
-        dy:(Math.random()-0.5)*0.5
+        r:Math.random()*2
     });
 }
 
@@ -98,21 +81,9 @@ function draw(){
     p.forEach(o=>{
         ctx.beginPath();
         ctx.arc(o.x,o.y,o.r,0,Math.PI*2);
-        ctx.fillStyle="rgba(255,150,200,0.8)";
+        ctx.fillStyle="pink";
         ctx.fill();
-
-        o.x+=o.dx;
-        o.y+=o.dy;
     });
     requestAnimationFrame(draw);
 }
 draw();
-
-/* 滑鼠視差 */
-document.addEventListener("mousemove",(e)=>{
-    let x = (e.clientX/window.innerWidth -0.5)*20;
-    let y = (e.clientY/window.innerHeight -0.5)*20;
-
-    document.getElementById("char").style.transform =
-        `translate(${x}px,${y}px)`;
-});
