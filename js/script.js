@@ -1,35 +1,65 @@
+const base = "img/";
+
+/* 工具：圖片不存在就隱藏 */
+function safeSetImg(el, path){
+    if(!path){
+        el.style.display = "none";
+        return;
+    }
+
+    const img = new Image();
+    img.onload = ()=> {
+        el.src = path;
+        el.style.display = "block";
+    };
+    img.onerror = ()=> {
+        el.style.display = "none";
+    };
+    img.src = path;
+}
+
+/* 角色資料（你可以慢慢補） */
 const characters = [
 {
     name:"Ribi",
-    info:"Age:19<br>Height:158cm<br>Cheerful",
-    main:"img/char1.png",
-    front:"img/front1.png",
-    side:"img/side1.png",
-    back:"img/back1.png",
-    bg:"img/bg1.jpg"
+    info:"Age:19<br>Height:158cm",
+
+    main: base + "full-body.png",
+    front: base + "front_view.png",
+    side: base + "side_view.png",
+    back: base + "back_view.png",
+
+    bg: base + "bg1.jpg"
 },
 {
-    name:"Ribi 2",
-    info:"Age:20<br>Height:160cm<br>Mysterious",
-    main:"img/char2.png",
-    front:"img/front2.png",
-    side:"img/side2.png",
-    back:"img/back2.png",
-    bg:"img/bg2.jpg"
+    name:"Coming Soon",
+    info:"???",
+
+    main: "",
+    front: "",
+    side: "",
+    back: "",
+
+    bg: ""
 }
 ];
 
-const swiperWrapper = document.getElementById("swiper-wrapper");
+/* 建立 swiper */
+const wrapper = document.getElementById("swiper-wrapper");
 
-/* 建立滑動角色 */
-characters.forEach((c,i)=>{
+characters.forEach(c=>{
     const slide = document.createElement("div");
     slide.className = "swiper-slide";
-    slide.innerHTML = `<img src="${c.main}" style="width:100%">`;
-    swiperWrapper.appendChild(slide);
+
+    slide.innerHTML = `
+        <div style="height:100px;display:flex;align-items:center;justify-content:center;">
+            ${c.main ? `<img src="${c.main}" style="height:100%">` : "?"}
+        </div>
+    `;
+
+    wrapper.appendChild(slide);
 });
 
-/* 初始化 */
 const swiper = new Swiper(".mySwiper",{
     slidesPerView:1.5,
     centeredSlides:true,
@@ -45,34 +75,37 @@ const side = document.getElementById("side");
 const back = document.getElementById("back");
 const bg = document.getElementById("bg");
 
-/* 切角色 */
-function updateCharacter(index){
-    const c = characters[index];
+/* 更新角色 */
+function updateCharacter(i){
+    const c = characters[i];
 
     nameEl.innerHTML = c.name;
     infoEl.innerHTML = c.info;
 
-    mainChar.src = c.main;
-    front.src = c.front;
-    side.src = c.side;
-    back.src = c.back;
+    safeSetImg(mainChar, c.main);
+    safeSetImg(front, c.front);
+    safeSetImg(side, c.side);
+    safeSetImg(back, c.back);
 
-    bg.style.backgroundImage = `url(${c.bg})`;
+    if(c.bg){
+        bg.style.backgroundImage = `url(${c.bg})`;
+    }else{
+        bg.style.background = "#111";
+    }
 }
 
 /* 初始 */
 updateCharacter(0);
 
-/* 滑動時切換 */
+/* 切換 */
 swiper.on("slideChange",()=>{
-    const index = swiper.realIndex;
-    updateCharacter(index);
+    updateCharacter(swiper.realIndex);
 });
 
-/* 視差（滑鼠） */
+/* 視差 */
 document.addEventListener("mousemove",(e)=>{
     const x = (e.clientX/window.innerWidth - 0.5)*20;
     const y = (e.clientY/window.innerHeight - 0.5)*20;
 
-    bg.style.transform = `scale(1.2) translate(${x}px, ${y}px)`;
+    bg.style.transform = `translate(${x}px, ${y}px) scale(1.05)`;
 });
