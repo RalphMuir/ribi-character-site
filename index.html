@@ -16,7 +16,7 @@
     <div class="bg"></div>
     <canvas id="particles"></canvas>
 
-    <!-- 左側 UI -->
+    <!-- 左 UI -->
     <div class="ui">
 
         <h1 class="name">Ribi.</h1>
@@ -29,9 +29,9 @@
 
         <!-- TAB -->
         <div class="tabs">
-            <button class="tab active" onclick="switchTab('profile')">PROFILE</button>
-            <button class="tab" onclick="switchTab('stream')">STREAM</button>
-            <button class="tab" onclick="switchTab('gallery')">GALLERY</button>
+            <button class="tab active" onclick="switchTab(event,'profile')">PROFILE</button>
+            <button class="tab" onclick="switchTab(event,'stream')">STREAM</button>
+            <button class="tab" onclick="switchTab(event,'gallery')">GALLERY</button>
         </div>
 
         <!-- 面板 -->
@@ -41,10 +41,13 @@
 
     <!-- 角色 -->
     <div class="character">
+
+        <!-- 👉 之後你可以換成 GIF 或 WebM -->
         <img src="img/full-body.png" class="main-char" id="char">
 
         <div class="arrow left" onclick="prevChar()">❮</div>
         <div class="arrow right" onclick="nextChar()">❯</div>
+
     </div>
 
 </div>
