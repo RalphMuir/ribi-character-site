@@ -1,5 +1,5 @@
 /* =========================
-   基本設定
+   Reset
 ========================= */
 body,html{
     margin:0;
@@ -21,69 +21,69 @@ body,html{
     background-size:cover;
     background-position:center;
     filter:blur(12px);
-    z-index:0;
 }
 
 /* 粒子 */
 #particles{
     position:absolute;
     inset:0;
-    z-index:1;
 }
 
 /* =========================
-   主畫面比例（關鍵🔥）
+   HERO
 ========================= */
 .hero{
-    display:grid;
-    grid-template-columns: 32% 68%;
     height:100vh;
     position:relative;
 }
 
-/* 中間光效（補空感🔥） */
+/* =========================
+   🔥 核心容器（重點）
+========================= */
+.container{
+    width:100%;
+    max-width:1400px;
+    height:100%;
+
+    margin:0 auto;
+
+    display:grid;
+    grid-template-columns: 35% 65%;
+}
+
+/* 中間光 */
 .hero::after{
     content:"";
     position:absolute;
     inset:0;
 
     background:
-        radial-gradient(
-            circle at 60% 50%,
-            rgba(255,120,180,0.15),
-            transparent 60%
-        );
-
-    pointer-events:none;
+        radial-gradient(circle at 65% 50%, rgba(255,120,180,0.15), transparent 60%);
 }
 
 /* =========================
-   左側 UI
+   UI
 ========================= */
 .ui{
     position:relative;
     z-index:10;
 
-    padding:80px 40px 80px 80px;
+    padding:clamp(40px,5vw,80px);
     max-width:500px;
 }
 
-/* 標題 */
 .name{
-    font-size:72px;
+    font-size:clamp(42px,5vw,72px);
     margin-bottom:10px;
 }
 
-/* 資訊 */
 .info{
     color:#aaa;
     margin-bottom:30px;
     line-height:1.6;
 }
 
-/* =========================
-   TAB
-========================= */
+/* TAB */
 .tabs{
     display:flex;
     gap:10px;
@@ -108,12 +108,8 @@ body,html{
     color:white;
 }
 
-/* =========================
-   面板（已修消失問題🔥）
-========================= */
+/* PANEL */
 .panel{
-    position:relative;
-
     background: linear-gradient(
         145deg,
         rgba(25,25,35,0.9),
@@ -125,104 +121,66 @@ body,html{
     backdrop-filter: blur(10px);
 
     box-shadow:
-        0 0 40px rgba(255,100,150,0.2),
-        inset 0 0 10px rgba(255,255,255,0.05);
+        0 0 40px rgba(255,100,150,0.2);
 
     padding:25px;
     border-radius:20px;
 
     min-height:200px;
-    max-width:420px;
 }
 
-/* 面板微光 */
-.panel::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    border-radius:20px;
-
-    background:linear-gradient(
-        to right,
-        rgba(255,255,255,0.05),
-        transparent
-    );
-
-    pointer-events:none;
-}
-
-/* =========================
-   三視圖
-========================= */
+/* 三視圖 */
 .profile img{
-    width:90px;
+    width:80px;
     margin-right:10px;
 }
 
 /* =========================
-   角色區（主視覺🔥）
+   角色
 ========================= */
 .character{
     display:flex;
     justify-content:flex-end;
     align-items:center;
 
-    padding-right:80px;
-
-    position:relative;
-    z-index:5;
+    padding-right:clamp(20px,5vw,80px);
 }
 
-/* 角色 */
 .main-char{
-    height:95vh;
-
+    height:clamp(400px,80vh,900px);
     transition:0.4s;
 
     filter:drop-shadow(0 0 40px rgba(255,120,180,0.6));
 }
 
-/* =========================
-   切換箭頭
-========================= */
+/* 箭頭 */
 .arrow{
     position:absolute;
     top:50%;
     font-size:40px;
     cursor:pointer;
-
     opacity:0.6;
-    transition:0.3s;
 }
 
-.arrow:hover{
-    opacity:1;
-}
-
-.arrow.left{ left:30px;}
-.arrow.right{ right:30px;}
+.arrow.left{ left:20px;}
+.arrow.right{ right:20px;}
 
 /* =========================
    Gallery
 ========================= */
 .gallery{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:repeat(auto-fit,minmax(100px,1fr));
     gap:10px;
 }
 
 .gallery img{
     width:100%;
     cursor:pointer;
-    transition:0.3s;
-}
-
-.gallery img:hover{
-    transform:scale(1.1);
 }
 
 /* =========================
-   燈箱
+   Lightbox
 ========================= */
 .lightbox{
     position:fixed;
@@ -231,7 +189,6 @@ body,html{
     display:none;
     justify-content:center;
     align-items:center;
-    z-index:20;
 }
 
 .lightbox img{
@@ -239,30 +196,37 @@ body,html{
 }
 
 /* =========================
-   響應式（手機🔥）
+   平板
 ========================= */
-@media(max-width:900px){
+@media(max-width:1024px){
 
-    .hero{
+    .container{
+        grid-template-columns: 40% 60%;
+    }
+
+}
+
+/* =========================
+   手機
+========================= */
+@media(max-width:768px){
+
+    body,html{
+        overflow:auto;
+    }
+
+    .container{
         grid-template-columns:1fr;
     }
 
-    .ui{
-        padding:40px;
-        max-width:none;
-    }
-
-    .panel{
-        max-width:none;
-    }
-
     .character{
-        height:40vh;
         justify-content:center;
-        padding-right:0;
+        height:40vh;
+        padding:0;
     }
 
     .main-char{
         height:100%;
     }
+
 }
