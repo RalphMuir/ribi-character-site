@@ -2,73 +2,45 @@
     --accent-red: #ff4d6d;
     --accent-blue: #4cc9f0;
     --glass-bg: rgba(15, 15, 20, 0.85);
-    --glass-border: rgba(255, 255, 255, 0.1);
 }
 
-body, html { margin: 0; padding: 0; height: 100%; background: #000; color: white; font-family: sans-serif; overflow: hidden; }
-
+body, html { margin: 0; padding: 0; height: 100%; background: #000; color: white; overflow: hidden; }
 .scroll-container { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; }
 section { height: 100vh; scroll-snap-align: start; position: relative; }
 
-/* --- Profile Swiper 核心修正 --- */
-.profile-swiper-container {
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-}
+/* Profile 容器鎖定高度，防止圖片爆版 */
+.profile-swiper-container { width: 100%; position: relative; }
+.profile-swiper { width: 100%; }
 
-.profile-swiper {
-    width: 100%;
-}
-
-/* 強制面板高度，防止圖片撐開 */
 .view-panel, .full-view-panel {
-    display: flex;
-    gap: 15px;
-    background: var(--glass-bg);
-    padding: 20px;
-    border-radius: 12px;
-    border: 1px solid var(--glass-border);
-    backdrop-filter: blur(20px);
-    height: 400px; /* 固定高度，絕對不能跑掉 */
+    display: flex; gap: 15px; 
+    background: var(--glass-bg); padding: 25px; 
+    border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); 
+    backdrop-filter: blur(20px); 
+    height: 420px; /* 關鍵：固定高度 */
     box-sizing: border-box;
 }
 
 .full-view-panel { justify-content: center; align-items: center; }
 
-.view-item {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
+.view-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; }
+.view-img-box { width: 100%; height: 330px; display: flex; align-items: flex-end; justify-content: center; }
+
+/* 圖片適應容器而不變形 */
+.char-view, .full-char-img { 
+    max-width: 100%; max-height: 100%; 
+    object-fit: contain; 
+    filter: drop-shadow(0 0 10px rgba(255, 77, 109, 0.3)); 
 }
 
-.view-img-box {
-    width: 100%;
-    height: 320px; /* 限制內部容器高度 */
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-}
+.view-label { margin-top: 10px; font-size: 10px; color: var(--accent-blue); letter-spacing: 2px; }
 
-/* 圖片顯示關鍵：contain 確保不失真，max-height 確保不爆出 */
-.char-view, .full-char-img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    filter: drop-shadow(0 0 10px rgba(255, 77, 109, 0.3));
-}
+/* 導航箭頭 */
+.profile-nav { display: flex; justify-content: center; gap: 60px; margin-top: 15px; }
+.p-prev, .p-next { color: var(--accent-blue); cursor: pointer; font-size: 1.5rem; transition: 0.3s; }
 
-.view-label { font-size: 10px; color: var(--accent-blue); margin-top: 10px; letter-spacing: 2px; }
-
-/* 導航按鈕 */
-.profile-nav { display: flex; justify-content: center; gap: 40px; margin-top: 15px; }
-.p-prev, .p-next { color: var(--accent-blue); cursor: pointer; font-size: 1.5rem; }
-
-/* Tab 切換控制 */
+/* 基礎排版控制 */
+.page-bottom { display: grid; grid-template-columns: 1.4fr 1fr; padding: 40px 80px; }
 .tab-content { display: none; }
 .tab-content.active { display: block; }
-
-.page-bottom { display: grid; grid-template-columns: 1.4fr 1fr; padding: 40px 80px; }
 .full-body-visual { background-size: contain; background-repeat: no-repeat; background-position: center bottom; height: 90vh; }
