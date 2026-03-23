@@ -1,6 +1,4 @@
-/* =========================
-   Reset
-========================= */
+/* ===== 基本 ===== */
 body,html{
     margin:0;
     font-family:sans-serif;
@@ -9,18 +7,16 @@ body,html{
     overflow:hidden;
 }
 
-/* =========================
-   背景
-========================= */
+/* ===== 背景 ===== */
 .bg{
     position:absolute;
     inset:0;
     background:
-        linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)),
+        linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.95)),
         url('../img/bg_art.png');
     background-size:cover;
     background-position:center;
-    filter:blur(12px);
+    filter:blur(14px);
 }
 
 /* 粒子 */
@@ -29,74 +25,74 @@ body,html{
     inset:0;
 }
 
-/* =========================
-   HERO
-========================= */
+/* ===== HERO ===== */
 .hero{
     height:100vh;
     position:relative;
 }
 
-/* =========================
-   🔥 核心容器（重點）
-========================= */
+/* ===== 主容器（視覺集中🔥） ===== */
 .container{
     width:100%;
-    max-width:1400px;
+    max-width:1100px; /* 🔥 再收窄 */
     height:100%;
 
     margin:0 auto;
 
     display:grid;
-    grid-template-columns: 35% 65%;
+    grid-template-columns: 42% 58%;
 }
 
-/* 中間光 */
+/* ===== 中間光效（設計感🔥） ===== */
 .hero::after{
     content:"";
     position:absolute;
     inset:0;
 
     background:
-        radial-gradient(circle at 65% 50%, rgba(255,120,180,0.15), transparent 60%);
+        radial-gradient(circle at 55% 50%, rgba(255,120,180,0.2), transparent 60%);
 }
 
-/* =========================
-   UI
-========================= */
+/* ===== 左 UI（放大🔥） ===== */
 .ui{
     position:relative;
     z-index:10;
 
-    padding:clamp(40px,5vw,80px);
-    max-width:500px;
+    padding:clamp(60px,6vw,100px) 40px 60px 80px;
+    max-width:520px;
+
+    transform:translateX(40px); /* 集中 */
 }
 
+/* 標題 */
 .name{
-    font-size:clamp(42px,5vw,72px);
+    font-size:clamp(60px,6vw,90px);
     margin-bottom:10px;
 }
 
+/* 資訊 */
 .info{
-    color:#aaa;
-    margin-bottom:30px;
-    line-height:1.6;
+    color:#bbb;
+    margin-bottom:35px;
+    font-size:18px;
+    line-height:1.7;
 }
 
-/* TAB */
+/* ===== TAB ===== */
 .tabs{
     display:flex;
-    gap:10px;
-    margin-bottom:20px;
+    gap:12px;
+    margin-bottom:25px;
 }
 
 .tab{
-    padding:10px 20px;
+    padding:12px 22px;
     background:#222;
     border:none;
     color:#aaa;
     cursor:pointer;
     transition:0.3s;
+    font-size:14px;
 }
 
 .tab:hover{
@@ -108,80 +104,83 @@ body,html{
     color:white;
 }
 
-/* PANEL */
+/* ===== 面板 ===== */
 .panel{
     background: linear-gradient(
         145deg,
-        rgba(25,25,35,0.9),
-        rgba(15,15,25,0.95)
+        rgba(25,25,35,0.92),
+        rgba(15,15,25,0.98)
     );
 
     border:1px solid rgba(255,255,255,0.1);
 
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
 
     box-shadow:
-        0 0 40px rgba(255,100,150,0.2);
+        0 0 50px rgba(255,100,150,0.25);
 
-    padding:25px;
-    border-radius:20px;
+    padding:30px;
+    border-radius:22px;
 
-    min-height:200px;
+    min-height:230px;
 }
 
 /* 三視圖 */
 .profile img{
-    width:80px;
+    width:95px;
     margin-right:10px;
 }
 
-/* =========================
-   角色
-========================= */
+/* ===== 角色（主視覺🔥） ===== */
 .character{
     display:flex;
-    justify-content:flex-end;
+    justify-content:center;
     align-items:center;
-
-    padding-right:clamp(20px,5vw,80px);
+    position:relative;
 }
 
 .main-char{
-    height:clamp(400px,80vh,900px);
-    transition:0.4s;
+    height:clamp(500px,85vh,900px);
+    transition:0.5s;
 
-    filter:drop-shadow(0 0 40px rgba(255,120,180,0.6));
+    filter:drop-shadow(0 0 50px rgba(255,120,180,0.7));
 }
 
-/* 箭頭 */
+/* ===== 箭頭 ===== */
 .arrow{
     position:absolute;
     top:50%;
     font-size:40px;
     cursor:pointer;
-    opacity:0.6;
+    opacity:0.5;
+    transition:0.3s;
 }
 
-.arrow.left{ left:20px;}
-.arrow.right{ right:20px;}
+.arrow:hover{
+    opacity:1;
+}
 
-/* =========================
-   Gallery
-========================= */
+.arrow.left{ left:10px;}
+.arrow.right{ right:10px;}
+
+/* ===== Gallery ===== */
 .gallery{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(100px,1fr));
+    grid-template-columns:repeat(3,1fr);
     gap:10px;
 }
 
 .gallery img{
     width:100%;
     cursor:pointer;
+    transition:0.3s;
 }
 
-/* =========================
-   Lightbox
-========================= */
+.gallery img:hover{
+    transform:scale(1.1);
+}
+
+/* ===== Lightbox ===== */
 .lightbox{
     position:fixed;
     inset:0;
@@ -195,20 +194,40 @@ body,html{
     max-width:80%;
 }
 
-/* =========================
-   平板
-========================= */
-@media(max-width:1024px){
-
-    .container{
-        grid-template-columns: 40% 60%;
-    }
-
+/* ===== 🎬 進場動畫 ===== */
+.ui,
+.main-char{
+    opacity:0;
+    transform:translateY(40px);
 }
 
-/* =========================
-   手機
-========================= */
+.show .ui{
+    animation:fadeUp 1s ease forwards;
+}
+
+.show .main-char{
+    animation:charIn 1.2s ease forwards;
+}
+
+@keyframes fadeUp{
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes charIn{
+    0%{
+        opacity:0;
+        transform:scale(0.8) translateY(60px);
+    }
+    100%{
+        opacity:1;
+        transform:scale(1) translateY(0);
+    }
+}
+
+/* ===== RWD ===== */
 @media(max-width:768px){
 
     body,html{
@@ -219,10 +238,13 @@ body,html{
         grid-template-columns:1fr;
     }
 
+    .ui{
+        transform:none;
+        padding:40px;
+    }
+
     .character{
-        justify-content:center;
         height:40vh;
-        padding:0;
     }
 
     .main-char{
