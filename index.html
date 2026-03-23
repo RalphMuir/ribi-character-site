@@ -1,10 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-TW">
 <head>
-  
-<title>Test</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Showcase | Ribi</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>成功了🔥</h1>
+
+<div class="scroll-container">
+    <section class="page-top" id="hero-section">
+        <div class="background-overlay"></div>
+        
+        <div class="mid-nav">
+            <div class="tabs">
+                <span class="tab-item active">Profile</span>
+                <span class="tab-item">Story</span>
+                <span class="tab-item">Gallery</span>
+            </div>
+
+            <div class="swiper visual-swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" data-bg="bg1.jpg"><img src="thumb1.jpg" alt="Visual 1"></div>
+                    <div class="swiper-slide" data-bg="bg2.jpg"><img src="thumb2.jpg" alt="Visual 2"></div>
+                    <div class="swiper-slide" data-bg="bg3.jpg"><img src="thumb3.jpg" alt="Visual 3"></div>
+                </div>
+            </div>
+
+            <div class="visual-footer">
+                <div class="nav-arrow prev-btn">❮</div>
+                <div class="line"></div>
+                <span>Visual</span>
+                <div class="line"></div>
+                <div class="nav-arrow next-btn">❯</div>
+            </div>
+        </div>
+        <div class="scroll-hint">SCROLL DOWN</div>
+    </section>
+
+    <section class="page-bottom">
+        <div class="info-box">
+            <h1 class="char-name">Ribi.</h1>
+            <div class="stats">
+                Age : 19<br>
+                Height : 158cm<br>
+                Personality : Cheerful & Curious
+            </div>
+
+            <div class="skill-tabs">
+                <button class="s-tab active">Profile</button>
+                <button class="s-tab">Skills</button>
+                <button class="s-tab">Gallery</button>
+            </div>
+            <div class="skill-list">
+                <div class="skill-item">
+                    <div class="skill-icon"></div>
+                    <div class="skill-info">
+                        <h3>Magic Hacker</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon"></div>
+                    <div class="skill-info">
+                        <h3>Energy Blast</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="full-body-visual"></div>
+    </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
