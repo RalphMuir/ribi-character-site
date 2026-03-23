@@ -12,28 +12,64 @@
 
 <div class="hero">
 
-    <!-- 粒子 -->
-    <canvas id="particles"></canvas>
+    <!-- 背景 -->
+    <div class="bg"></div>
 
-    <!-- 左資訊 -->
-    <div class="left">
-        <h1 class="name">Ribi</h1>
+    <!-- UI區 -->
+    <div class="ui">
+
+        <h1 class="name">Ribi.</h1>
 
         <div class="info">
             Age : 19<br>
             Height : 158cm<br>
-            Personality : Cheerful
+            Personality : Cheerful & Curious
         </div>
 
-        <div class="views">
-            <img src="img/front_view.png">
-            <img src="img/side_view.png">
-            <img src="img/back_view.png">
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" data-tab="profile">PROFILE</button>
+            <button class="tab" data-tab="skills">STREAM</button>
+            <button class="tab" data-tab="gallery">GALLERY</button>
+        </div>
+
+        <!-- 內容 -->
+        <div class="panel">
+
+            <!-- PROFILE -->
+            <div class="tab-content active" id="profile">
+                <div class="views">
+                    <img src="img/front_view.png">
+                    <img src="img/side_view.png">
+                    <img src="img/back_view.png">
+                </div>
+            </div>
+
+            <!-- STREAM -->
+            <div class="tab-content" id="skills">
+                <iframe 
+                    width="100%" 
+                    height="200"
+                    src="https://www.youtube.com/embed?listType=user_uploads&list=CHANNEL_ID"
+                    frameborder="0"
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <!-- GALLERY -->
+            <div class="tab-content" id="gallery">
+                <div class="gallery">
+                    <img src="img/g1.png">
+                    <img src="img/g2.png">
+                    <img src="img/g3.png">
+                </div>
+            </div>
+
         </div>
     </div>
 
-    <!-- 右角色 -->
-    <div class="right">
+    <!-- 主角色 -->
+    <div class="character">
         <img src="img/full-body.png" class="main-char">
     </div>
 
