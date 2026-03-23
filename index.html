@@ -14,10 +14,10 @@
         <div class="background-overlay"></div>
         
         <div class="mid-nav">
-            <div class="tabs">
-                <span class="tab-item active">Profile</span>
-                <span class="tab-item">Story</span>
-                <span class="tab-item">Gallery</span>
+            <div class="tabs-top">
+                <span class="tab-item-top active">Profile</span>
+                <span class="tab-item-top">Story</span>
+                <span class="tab-item-top">Gallery</span>
             </div>
 
             <div class="swiper visual-swiper">
@@ -48,29 +48,39 @@
                 Personality : Cheerful & Curious
             </div>
 
-            <div class="skill-tabs">
-                <button class="s-tab active">Profile</button>
-                <button class="s-tab">Skills</button>
-                <button class="s-tab">Gallery</button>
+            <div class="sub-tabs">
+                <button class="s-tab active" data-target="profile-content">Profile</button>
+                <button class="s-tab" data-target="skills-content">Skills</button>
+                <button class="s-tab" data-target="gallery-content">Gallery</button>
             </div>
 
-            <div class="skill-list">
-                <div class="skill-item">
-                    <div class="skill-icon"></div>
-                    <div class="skill-info">
-                        <h3>Magic Hacker</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
+            <div id="profile-content" class="tab-content active">
+                <div class="skill-list">
+                    <div class="skill-item">
+                        <div class="skill-icon"><img src="img/skill_icon_red.png" alt=""></div>
+                        <div class="skill-info">
+                            <h3>Magic Hacker</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        </div>
                     </div>
-                </div>
-                <div class="skill-item">
-                    <div class="skill-icon"></div>
-                    <div class="skill-info">
-                        <h3>Energy Blast</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
+                    <div class="skill-item blue-variant">
+                        <div class="skill-icon"><img src="img/skill_icon_blue.png" alt=""></div>
+                        <div class="skill-info">
+                            <h3>Energy Blast</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <div id="skills-content" class="tab-content">
+                <p class="empty-text">Skills Details Coming Soon...</p>
+            </div>
+            <div id="gallery-content" class="tab-content">
+                <p class="empty-text">Gallery Content Coming Soon...</p>
+            </div>
         </div>
+
         <div class="full-body-visual" style="background-image: url('img/full-body.png');"></div>
     </section>
 </div>
