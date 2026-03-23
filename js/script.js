@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. 初始化上方視覺輪播
-    const visualSwiper = new Swiper('.visual-swiper', {
+    // 1. 初始化 Swiper
+    const swiper = new Swiper('.visual-swiper', {
         slidesPerView: 3,
         centeredSlides: true,
         spaceBetween: 20,
@@ -8,31 +8,26 @@ document.addEventListener('DOMContentLoaded', () => {
         navigation: { nextEl: '.next-btn', prevEl: '.prev-btn' }
     });
 
-    // 2. 初始化 Profile 展示切換 (手動翻頁模式)
-    const profileSwiper = new Swiper('.profile-swiper', {
-        slidesPerView: 1,      // 一次換一頁
-        spaceBetween: 30,
-        grabCursor: true,      // 手勢拖動
-        navigation: {
-            nextEl: '.p-next',
-            prevEl: '.p-prev',
-        },
-    });
+    // 2. 固定背景
+    const hero = document.getElementById('hero-section');
+    const bgName = hero.getAttribute('data-fixed-bg');
+    if (bgName) {
+        hero.style.backgroundImage = `url('img/${bgName}')`;
+    }
 
-    // 3. Tab 切換功能，並確保 Swiper 在顯示後更新
+    // 3. Tab 切換邏輯
     const tabs = document.querySelectorAll('.s-tab');
+    const contents = document.querySelectorAll('.tab-content');
+
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
             const target = tab.getAttribute('data-target');
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            document.querySelectorAll('.s-tab').forEach(t => t.classList.remove('active'));
-            
-            tab.classList.add('active');
-            document.getElementById(target).classList.add('active');
 
-            if(target === 'profile-content') {
-                setTimeout(() => profileSwiper.update(), 50); // 解決隱藏切換後滑不動的問題
-            }
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            contents.forEach(c => c.classList.remove('active'));
+            document.getElementById(target).classList.add('active');
         });
     });
 });
