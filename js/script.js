@@ -1,98 +1,51 @@
-let currentTab = "profile";
+window.addEventListener('load', () => {
+    // 初始進入動畫
+    gsap.from(".reveal", { opacity: 0, y: 30, stagger: 0.1, duration: 1.2, ease: "power3.out" });
+    
+    // 背景繁星生成
+    const bgLayer = document.getElementById('bg-layer');
+    const shapeTypes = ['circle', 'square', 'triangle', 'star', 'diamond', 'line'];
+    const numberOfShapes = 25;
 
-/* TAB */
-function switchTab(e,tab){
-    currentTab = tab;
+    for (let i = 0; i < numberOfShapes; i++) {
+        const shape = document.createElement('div');
+        const type = shapeTypes[Math.floor(Math.random() * shapeTypes.length)];
+        shape.className = `geo-shape shape-${type}`;
+        shape.style.top = Math.random() * 100 + '%';
+        shape.style.left = Math.random() * 100 + '%';
+        shape.style.opacity = 0.1 + Math.random() * 0.15;
+        bgLayer.appendChild(shape);
 
-    document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
-    e.target.classList.add("active");
-
-    render();
-}
-
-/* 內容 */
-function render(){
-    const panel = document.getElementById("panel");
-
-    if(currentTab==="profile"){
-        panel.innerHTML = `
-        <div class="profile">
-            <img src="img/front_view.png">
-            <img src="img/side_view.png">
-            <img src="img/back_view.png">
-        </div>`;
+        // 異移動態
+        const moveShape = () => {
+            gsap.to(shape, {
+                x: `+=${Math.random() * 20 - 10}vw`,
+                y: `+=${Math.random() * 20 - 10}vh`,
+                rotation: `+=${Math.random() * 72}`,
+                duration: 2.5 + Math.random() * 3,
+                ease: "sine.inOut",
+                onComplete: moveShape
+            });
+        };
+        moveShape();
     }
-
-    if(currentTab==="stream"){
-        panel.innerHTML = `
-        <iframe width="100%" height="220"
-        src="https://www.youtube.com/embed/dQw4w9WgXcQ"></iframe>`;
-    }
-
-    if(currentTab==="gallery"){
-        panel.innerHTML = `
-        <div class="gallery">
-            <img src="img/g1.png" onclick="openLightbox(this.src)">
-            <img src="img/g2.png" onclick="openLightbox(this.src)">
-            <img src="img/g3.png" onclick="openLightbox(this.src)">
-        </div>`;
-    }
-}
-
-render();
-
-/* 燈箱 */
-function openLightbox(src){
-    document.getElementById("lightbox").style.display="flex";
-    document.getElementById("lightbox-img").src=src;
-}
-
-function closeLightbox(){
-    document.getElementById("lightbox").style.display="none";
-}
-
-/* 角色動畫 */
-function nextChar(){
-    const c=document.getElementById("char");
-    c.style.transform="translateX(120px) scale(0.95)";
-    setTimeout(()=>c.style.transform="translateX(0) scale(1)",300);
-}
-
-function prevChar(){
-    const c=document.getElementById("char");
-    c.style.transform="translateX(-120px) scale(0.95)";
-    setTimeout(()=>c.style.transform="translateX(0) scale(1)",300);
-}
-
-/* 🎬 進場動畫 */
-window.addEventListener("load",()=>{
-    document.body.classList.add("show");
 });
 
-/* 粒子 */
-const canvas=document.getElementById("particles");
-const ctx=canvas.getContext("2d");
+// 滑鼠互動
+const cursor = document.getElementById('custom-cursor');
+const charZone = document.getElementById('char-zone');
+const heroTitle = document.getElementById('hero-title');
 
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-
-let p=[];
-for(let i=0;i<50;i++){
-    p.push({
-        x:Math.random()*canvas.width,
-        y:Math.random()*canvas.height,
-        r:Math.random()*2
-    });
-}
-
-function draw(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    p.forEach(o=>{
-        ctx.beginPath();
-        ctx.arc(o.x,o.y,o.r,0,Math.PI*2);
-        ctx.fillStyle="rgba(255,150,200,0.8)";
-        ctx.fill();
-    });
-    requestAnimationFrame(draw);
-}
-draw();
+document.addEventListener('mousemove', (e) => {
+    if (window.innerWidth > 1024) {
+        // 自定義游標跟隨
+        gsap.to(cursor, { x: e.clientX - 12.5, y: e.clientY - 12.5, duration: 0.1 });
+        
+        // 視差效果
+        const mouseX = (e.clientX - window.innerWidth / 2);
+        const mouseY = (e.clientY - window.innerHeight / 2);
+        
+        gsap.to(charZone, { x: mouseX / 60, y: mouseY / 60, duration: 1.2 });
+        gsap.to(heroTitle, { x: -mouseX / 80, y: -mouseY / 80, duration: 1.5 });
+    }
+});
