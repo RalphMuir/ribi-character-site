@@ -1,60 +1,79 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ribi Showcase</title>
-
-<link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>莉比 リビー | IDOL PROFILE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,900&family=Noto+Sans+TC:wght@400;900&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
+<body class="flex flex-col">
 
-<body>
+    <div id="custom-cursor"></div>
+    
+    <div class="bg-interactive-layer" id="bg-layer"></div>
 
-<div class="hero">
-
-    <div class="bg"></div>
-    <canvas id="particles"></canvas>
-
-    <div class="container">
-
-        <!-- 左 UI -->
-        <div class="ui">
-
-            <h1 class="name">Ribi.</h1>
-
-            <div class="info">
-                Age : 19<br>
-                Height : 158cm<br>
-                Personality : Cheerful & Curious
+    <div class="content-layer">
+        <header class="glass-header py-4 lg:py-6 px-8 lg:px-12 flex justify-between items-center shrink-0">
+            <div class="logo-container">
+                <img src="https://panels.twitch.tv/panel-805484202-image-48cac526-c6ab-422c-84d1-ace6d416d636" alt="Logo" class="h-16 lg:h-24 w-auto object-contain">
             </div>
+            <nav class="hidden lg:flex gap-8">
+                <a href="#" class="nav-item">ARCHIVE</a>
+                <a href="#" class="nav-item">ABOUT</a>
+                <a href="#" class="nav-item">CONTACT</a>
+            </nav>
+        </header>
 
-            <div class="tabs">
-                <button class="tab active" onclick="switchTab(event,'profile')">PROFILE</button>
-                <button class="tab" onclick="switchTab(event,'stream')">STREAM</button>
-                <button class="tab" onclick="switchTab(event,'gallery')">GALLERY</button>
+        <main class="flex-grow flex items-center justify-center px-6 lg:px-12 relative main-content min-h-screen">
+            <div class="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                
+                <div class="col-span-12 lg:col-span-5 space-y-6 order-2 lg:order-1 flex flex-col items-center lg:items-start">
+                    <div class="reveal w-full">
+                        <div class="flex items-center justify-center lg:justify-start gap-3">
+                            <span class="h-[2px] w-8 bg-pink-400"></span>
+                            <span class="text-pink-500 font-black tracking-widest text-[10px] uppercase">IDOL PROFILE / GEN-01</span>
+                        </div>
+                        <h1 id="hero-title" class="text-6xl lg:text-8xl font-black italic leading-[0.85] mt-2">
+                            莉比<br><span class="text-pink-400">リビー</span>
+                        </h1>
+                    </div>
+
+                    <div class="bg-white/80 backdrop-blur-md p-6 lg:p-8 rounded-[2.5rem] shadow-xl border-l-[8px] border-pink-400 reveal max-w-lg lg:max-w-none">
+                        <p class="text-gray-600 leading-relaxed italic text-sm lg:text-base">
+                            魔～法變身！🌟莉比醬閃亮登場～ 我是主要在圖奇直播的繪圖系Vtuber魔法少女！ 平時會有繪圖雜談台、遊戲台、偶爾唱唱歌～ 歡迎大家來找我玩喔！快點變成我可愛的莉息吧!!🪄✨ ( ' ' )
+                        </p>
+                    </div>
+
+                    <div class="flex flex-wrap justify-center lg:justify-start gap-4 reveal">
+                        <a href="#" class="social-link x-btn"><span>X (TWITTER)</span></a>
+                        <a href="#" class="social-link yt-btn"><span>YOUTUBE</span></a>
+                        <a href="#" class="social-link tw-btn"><span>TWITCH</span></a>
+                    </div>
+                </div>
+
+                <div class="col-span-12 lg:col-span-7 relative flex justify-center items-center order-1 lg:order-2">
+                    <div class="relative p-4 reveal group" id="char-zone">
+                        <div class="corner-bracket cb-tl"></div><div class="corner-bracket cb-br"></div>
+                        <div class="rounded-3xl overflow-hidden bg-white shadow-2xl relative border-4 border-white">
+                            <img src="https://raw.githubusercontent.com/RalphMuir/ribi-character-site/refs/heads/main/img/bg_art.png" 
+                                 id="char-main" alt="莉比插畫" 
+                                 class="w-full max-w-[380px] lg:max-w-[500px] block transition-all duration-700 group-hover:scale-105 group-hover:rotate-2">
+                        </div>
+                    </div>
+                </div>
             </div>
+        </main>
 
-            <div class="panel" id="panel"></div>
-
-        </div>
-
-        <!-- 角色 -->
-        <div class="character">
-            <img src="img/full-body.png" class="main-char" id="char">
-
-            <div class="arrow left" onclick="prevChar()">❮</div>
-            <div class="arrow right" onclick="nextChar()">❯</div>
-        </div>
-
+        <footer class="py-6 lg:py-10 text-center shrink-0">
+            <div class="reveal opacity-30 text-[9px] font-black tracking-[0.5em] uppercase">
+                Digital Creative & Magical Soul / Station: Tainan
+            </div>
+        </footer>
     </div>
 
-</div>
-
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-    <img id="lightbox-img">
-</div>
-
-<script src="js/script.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
