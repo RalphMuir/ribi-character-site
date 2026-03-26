@@ -1,254 +1,111 @@
-/* ===== 基本 ===== */
-body,html{
-    margin:0;
-    font-family:sans-serif;
-    background:#0a0a0f;
-    color:white;
-    overflow:hidden;
+:root {
+    --brand-pink: #ff85a2;
+    --soft-pink: #fff5f8;
+    --accent-pink: #ff3e7e;
+    --twitch-purple: #9146ff;
 }
 
-/* ===== 背景 ===== */
-.bg{
-    position:absolute;
-    inset:0;
-    background:
-        linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.95)),
-        url('../img/bg_art.png');
-    background-size:cover;
-    background-position:center;
-    filter:blur(14px);
+body, html {
+    height: 100%; margin: 0; overflow: hidden;
+    background-color: var(--soft-pink);
+    font-family: 'Noto Sans TC', sans-serif;
+    color: #4a4a4a;
 }
 
-/* 粒子 */
-#particles{
-    position:absolute;
-    inset:0;
+h1 {
+    font-family: 'Montserrat'; 
+    letter-spacing: -0.05em; 
+    color: #1a1a1a;
 }
 
-/* ===== HERO ===== */
-.hero{
-    height:100vh;
-    position:relative;
-}
-
-/* ===== 主容器（視覺集中🔥） ===== */
-.container{
-    width:100%;
-    max-width:1100px; /* 🔥 再收窄 */
-    height:100%;
-
-    margin:0 auto;
-
-    display:grid;
-    grid-template-columns: 42% 58%;
-}
-
-/* ===== 中間光效（設計感🔥） ===== */
-.hero::after{
-    content:"";
-    position:absolute;
-    inset:0;
-
-    background:
-        radial-gradient(circle at 55% 50%, rgba(255,120,180,0.2), transparent 60%);
-}
-
-/* ===== 左 UI（放大🔥） ===== */
-.ui{
-    position:relative;
-    z-index:10;
-
-    padding:clamp(60px,6vw,100px) 40px 60px 80px;
-    max-width:520px;
-
-    transform:translateX(40px); /* 集中 */
-}
-
-/* 標題 */
-.name{
-    font-size:clamp(60px,6vw,90px);
-    margin-bottom:10px;
-}
-
-/* 資訊 */
-.info{
-    color:#bbb;
-    margin-bottom:35px;
-    font-size:18px;
-    line-height:1.7;
-}
-
-/* ===== TAB ===== */
-.tabs{
-    display:flex;
-    gap:12px;
-    margin-bottom:25px;
-}
-
-.tab{
-    padding:12px 22px;
-    background:#222;
-    border:none;
-    color:#aaa;
-    cursor:pointer;
-    transition:0.3s;
-    font-size:14px;
-}
-
-.tab:hover{
-    background:#444;
-}
-
-.tab.active{
-    background:#ff4d88;
-    color:white;
-}
-
-/* ===== 面板 ===== */
-.panel{
-    background: linear-gradient(
-        145deg,
-        rgba(25,25,35,0.92),
-        rgba(15,15,25,0.98)
-    );
-
-    border:1px solid rgba(255,255,255,0.1);
-
-    backdrop-filter: blur(12px);
-
-    box-shadow:
-        0 0 50px rgba(255,100,150,0.25);
-
-    padding:30px;
-    border-radius:22px;
-
-    min-height:230px;
-}
-
-/* 三視圖 */
-.profile img{
-    width:95px;
-    margin-right:10px;
-}
-
-/* ===== 角色（主視覺🔥） ===== */
-.character{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    position:relative;
-}
-
-.main-char{
-    height:clamp(500px,85vh,900px);
-    transition:0.5s;
-
-    filter:drop-shadow(0 0 50px rgba(255,120,180,0.7));
-}
-
-/* ===== 箭頭 ===== */
-.arrow{
-    position:absolute;
-    top:50%;
-    font-size:40px;
-    cursor:pointer;
-    opacity:0.5;
-    transition:0.3s;
-}
-
-.arrow:hover{
-    opacity:1;
-}
-
-.arrow.left{ left:10px;}
-.arrow.right{ right:10px;}
-
-/* ===== Gallery ===== */
-.gallery{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
-}
-
-.gallery img{
-    width:100%;
-    cursor:pointer;
-    transition:0.3s;
-}
-
-.gallery img:hover{
-    transform:scale(1.1);
-}
-
-/* ===== Lightbox ===== */
-.lightbox{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.9);
-    display:none;
-    justify-content:center;
-    align-items:center;
-}
-
-.lightbox img{
-    max-width:80%;
-}
-
-/* ===== 🎬 進場動畫 ===== */
-.ui,
-.main-char{
-    opacity:0;
-    transform:translateY(40px);
-}
-
-.show .ui{
-    animation:fadeUp 1s ease forwards;
-}
-
-.show .main-char{
-    animation:charIn 1.2s ease forwards;
-}
-
-@keyframes fadeUp{
-    to{
-        opacity:1;
-        transform:translateY(0);
+@media (min-width: 1024px) {
+    body { cursor: none; overflow: hidden; }
+    #custom-cursor {
+        position: fixed; width: 25px; height: 25px; border: 1.5px solid var(--accent-pink);
+        border-radius: 50%; pointer-events: none; z-index: 9999;
+        transition: transform 0.1s;
     }
 }
 
-@keyframes charIn{
-    0%{
-        opacity:0;
-        transform:scale(0.8) translateY(60px);
-    }
-    100%{
-        opacity:1;
-        transform:scale(1) translateY(0);
-    }
+/* --- 背景：繁星異動 --- */
+.bg-interactive-layer { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.geo-shape { 
+    position: absolute; pointer-events: none; opacity: 0.18; 
+    mix-blend-mode: multiply; transform-origin: center;
 }
 
-/* ===== RWD ===== */
-@media(max-width:768px){
+.shape-circle { background: var(--brand-pink); border-radius: 50%; width: 6vw; height: 6vw; }
+.shape-square { background: var(--accent-pink); width: 5vw; height: 5vw; }
+.shape-triangle { 
+    width: 0; height: 0; 
+    border-left: 3.5vw solid transparent; border-right: 3.5vw solid transparent;
+    border-bottom: 6vw solid var(--brand-pink); opacity: 0.1;
+}
+.shape-star {
+    width: 0; height: 0;
+    border-left: 2vw solid transparent; border-right: 2vw solid transparent;
+    border-bottom: 3vw solid var(--accent-pink);
+    position: relative;
+}
+.shape-star::after {
+    content: ''; position: absolute; left: -2vw; top: 0.5vw;
+    width: 0; height: 0;
+    border-left: 2vw solid transparent; border-right: 2vw solid transparent;
+    border-top: 3vw solid var(--accent-pink);
+}
+.shape-diamond { width: 3vw; height: 3vw; background: var(--twitch-purple); transform: rotate(45deg); opacity: 0.15; }
+.shape-line { width: 1px; height: 10vw; background: linear-gradient(to bottom, transparent, var(--brand-pink), transparent); opacity: 0.4; }
 
-    body,html{
-        overflow:auto;
-    }
+/* --- 懸浮式標題列 --- */
+.glass-header {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+    background: transparent;
+    transition: all 0.3s ease;
+}
 
-    .container{
-        grid-template-columns:1fr;
-    }
+.logo-container { transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-origin: center; }
+.logo-container:hover { transform: scale(1.05) rotate(2deg); }
 
-    .ui{
-        transform:none;
-        padding:40px;
-    }
+.nav-item {
+    font-family: 'Syncopate', sans-serif; font-size: 0.7rem; letter-spacing: 0.3em;
+    position: relative; padding: 10px 0; transition: all 0.3s ease;
+}
+.nav-item::after {
+    content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
+    background: var(--accent-pink); transition: width 0.3s ease;
+}
+.nav-item:hover { color: var(--accent-pink); }
+.nav-item:hover::after { width: 100%; }
 
-    .character{
-        height:40vh;
-    }
+/* --- UI 內容層 --- */
+.content-layer { position: relative; z-index: 10; width: 100%; min-height: 100vh; display: flex; flex-direction: column; }
 
-    .main-char{
-        height:100%;
-    }
+.social-link {
+    position: relative; width: 140px; height: 48px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 99px; font-weight: 900; font-size: 0.8rem;
+    overflow: hidden; transition: all 0.4s; border: 2px solid #000; z-index: 1;
+    background: white; box-shadow: 0 4px 0 #000;
+}
+.social-link:active { transform: translateY(3px); box-shadow: 0 1px 0 #000; }
+.social-link.x-btn { border-color: #000; color: #000; }
+.social-link.yt-btn { border-color: #e62117; color: #e62117; }
+.social-link.tw-btn { border-color: var(--twitch-purple); color: var(--twitch-purple); }
+.social-link::before {
+    content: ''; position: absolute; top: 50%; left: 50%; width: 0; height: 0;
+    border-radius: 50%; transition: width 0.5s, height 0.5s; z-index: -1; transform: translate(-50%, -50%);
+}
+.social-link:hover { color: #fff; transform: translateY(-3px); }
+.social-link:hover::before { width: 220px; height: 220px; }
+.social-link.x-btn::before { background: #000; }
+.social-link.yt-btn::before { background: #e62117; }
+.social-link.tw-btn::before { background: var(--twitch-purple); }
 
+.corner-bracket { position: absolute; width: clamp(20px, 4vw, 30px); height: clamp(20px, 4vw, 30px); border: 3px solid var(--brand-pink); z-index: 20; }
+.cb-tl { top: -8px; left: -8px; border-right: 0; border-bottom: 0; }
+.cb-br { bottom: -8px; right: -8px; border-left: 0; border-top: 0; }
+
+@media (max-width: 1023px) {
+    .main-content { padding-top: 160px; padding-bottom: 60px; }
+    .logo-container img { height: 60px; }
 }
